@@ -9,17 +9,19 @@
     <meta name="generator" content="BolsaLaboral_1.0">
     <title>BolsaLaboral RRP</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
-
+    
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
     
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/mystyle.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/style.css') ?>">
     
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+
     <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
     <script src="<?= base_url('assets/js/jquery-3.5.1.js') ?>"></script>
+    <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
 
 </head>
 

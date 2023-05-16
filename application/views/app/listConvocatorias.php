@@ -9,7 +9,7 @@
                 <p><?= substr($item->detail, 0, 100) . '...' ?></p>
                 <p><small class="text-muted">Fecha de publicación:&nbsp;<?= date("d/m/Y", strtotime($item->date_publish)); ?></small></p>
                 <div class="float-end">
-                    <a class="btn btn-outline-success" href="#"><strong>Ver más detalles</strong></a>
+                    <a class="btn btn-outline-success" href="/users/convocatoria/<?= $item->id;?>"><strong>Ver más detalles</strong></a>
                 </div>
             </div>
         </div>

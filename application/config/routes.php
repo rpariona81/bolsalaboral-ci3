@@ -62,7 +62,7 @@ $route['logout'] = 'homecontroller/logout';
 
 /**AppController - Estudiantes - Docentes */
 $route['users'] = 'appcontroller/index';
-$route['users/convocatoria'] = 'appcontroller/viewConvocatoria';
+$route['users/convocatoria/(:num)'] = 'appcontroller/viewConvocatoria/$1';
 $route['users/postulaciones'] = 'appcontroller/viewPostulaciones';
 $route['users/perfil'] = 'appcontroller/viewPerfil';
 $route['users/credenciales'] = 'appcontroller/viewCredenciales';
