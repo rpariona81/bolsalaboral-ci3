@@ -18,7 +18,7 @@ echo '<!-- Begin page content -->';
 echo '<main class="flex-shrink-0">';
 echo '  <div class="container">';
 
-$this->load->view($contenido);
+$this->load->view($pagina);
 
 echo '  </div>';
 echo '</main>';

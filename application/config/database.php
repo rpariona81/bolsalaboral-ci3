@@ -106,8 +106,8 @@ $capsule = new Capsule;
 $capsule->addConnection([
     //'driver'    => 'sqlite',
     //'driver'    => 'sqlsrv',
-    //'driver'    => 'mysql',
-    'driver' => getenv('DB_CONNECTION'),
+    'driver'    => 'mysql',
+    //'driver' => getenv('DB_CONNECTION'),
     'host' => $db['default']['hostname'],
     'database' => $db['default']['database'],
     'username' => $db['default']['username'],

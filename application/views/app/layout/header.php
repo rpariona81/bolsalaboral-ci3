@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse align-items-center" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a class="nav-link" aria-current="page" href="/users">
                                 <i class="fa fa-area-chart"></i>
                                 Convocatorias
                             </a>
@@ -48,14 +48,14 @@
                         <?php
                         if ($rol == 'estudiante' || $rol == 'egresado') {
                             echo '<li class="nav-item">';
-                            echo '<a class="nav-link" aria-current="page" href="#">';
+                            echo '<a class="nav-link" aria-current="page" href="/users/postulaciones">';
                             echo '   <i class="fa fa-id-badge"></i>';
                             echo '    Mis postulaciones';
                             echo '</a>';
                             echo '</li>';
 
                             echo '<li class="nav-item">';
-                            echo '<a class="nav-link" href="#">';
+                            echo '<a class="nav-link" href="/users/perfil">';
                             echo '    <i class="fa fa-id-card-o"></i>';
                             echo '    Mi perfil</a>';
                             echo '</li>';
@@ -63,7 +63,7 @@
                         }
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/users/credenciales">
                                 <i class="fa fa-key"></i>
                                 Cambiar clave
                             </a>

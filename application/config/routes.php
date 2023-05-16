@@ -53,5 +53,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'homecontroller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
 $route['wp-login'] = 'authcontroller/index_user';
+
 $route['wp-admin'] = 'authcontroller/index_admin';
+
+$route['logout'] = 'homecontroller/logout';
+
+/**AppController - Estudiantes - Docentes */
+$route['users'] = 'appcontroller/index';
+$route['users/convocatoria'] = 'appcontroller/viewConvocatoria';
+$route['users/postulaciones'] = 'appcontroller/viewPostulaciones';
+$route['users/perfil'] = 'appcontroller/viewPerfil';
+$route['users/credenciales'] = 'appcontroller/viewCredenciales';
+
+$route['admin'] = 'admincontroller/index';

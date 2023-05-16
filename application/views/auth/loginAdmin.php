@@ -10,6 +10,8 @@
     <title>Login - SB Admin</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>">
 
+    <link rel="stylesheet" href="<?= base_url('assets/css_ex/sticky-footer.css') ?>">
+
     <link href="<?= base_url('assets/css/styles.css') ?>" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -20,7 +22,7 @@
             <main>
                 <div class="container">
                     <div class="login-logo text-center mt-4">
-                        <img src="<?= base_url('assets/img/logoFondoBlack.png') ?>" width="250" height="250" id="logo">
+                        <img src="<?= base_url('assets/img/logo_2023.png') ?>" width="250" height="250" id="logo">
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
@@ -53,8 +55,8 @@
         </div>
         <br />
         <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
+            <footer class="footer">
+                <div class="container px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; IESTP Ricardo Ramos Plata</div>
                     </div>

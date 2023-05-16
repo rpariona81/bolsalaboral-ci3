@@ -24,7 +24,7 @@
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-kadence text-white">
     <div class="container">
     <a class="navbar-brand" href="/">
-      <img class="img rounded-circle mb-10" src="<?= base_url('assets/img/logoFondoBlack.png') ?>" height="80" />
+      <img class="img rounded-circle mb-10" src="<?= base_url('assets/img/logo_2023.png') ?>" height="80" />
       &nbsp;&nbsp;&nbsp;IESTP "RICARDO RAMOS PLATA"
     </a>
     </div>
