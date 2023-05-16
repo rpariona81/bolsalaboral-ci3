@@ -1,9 +1,8 @@
 <?php
 
 use \Illuminate\Database\Eloquent\Model as Eloquent;
-use \Illuminate\Support\Carbon;
 
-class User extends Eloquent{
+class UserEloquent extends Eloquent{
     protected $table = 't_users';
 
     /**
