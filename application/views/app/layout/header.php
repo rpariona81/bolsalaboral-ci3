@@ -13,9 +13,10 @@
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
     
     <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="<?= base_url('assets/css_ex/styles.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/mystyle.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css_ex/style.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css_ex/style-footer.css') ?>">
+    <!--<link rel="stylesheet" href="<?= base_url('assets/css_ex/custom.css') ?>">-->
+    <link rel="stylesheet" href="<?= base_url('assets/css_ex/sticky-footer-navbar.css') ?>">
     
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">

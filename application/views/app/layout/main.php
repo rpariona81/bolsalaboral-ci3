@@ -12,4 +12,6 @@ $this->load->view($pagina);
 echo '  </div>';
 echo '</main>';
 echo '<br/>';
+echo '<br/>';
+echo '<br/>';
 $this->load->view('app/layout/footer');
