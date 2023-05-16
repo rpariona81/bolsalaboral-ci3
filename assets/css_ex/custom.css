@@ -1,0 +1,62 @@
+.sb-sidenav-kadence {
+  /*background-color: #26375c;*/
+  background-color: #0f152e;
+  color: rgba(255, 255, 255, 0.988);
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .sb-sidenav-menu-heading {
+  color: rgba(255, 255, 255, 0.988);
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+  color: rgba(255, 255, 255, 0.988);
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+  color: rgba(255, 255, 255, 0.988);
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link:hover {
+  color: #fff;
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link.active {
+  color: #fff;
+}
+
+.sb-sidenav-kadence .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+  color: #fff;
+}
+
+.sb-sidenav-kadence .sb-sidenav-footer {
+  /*background-color: #26375c;*/
+  background-color: #0f152e;
+}
+
+
+.btn-link {
+  font-weight: 400;
+  color: #26375c;
+  text-decoration: underline;
+}
+
+.login-logo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  left: 50%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  align-items: center;
+}
+
+.bg-kadence-admin{
+  /*background-color: #26375c;*/
+  background-color: #0f152e;
+}
+
