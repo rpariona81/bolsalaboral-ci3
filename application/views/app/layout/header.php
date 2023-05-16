@@ -15,6 +15,7 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/mystyle.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css_ex/style-footer.css') ?>">
     
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">

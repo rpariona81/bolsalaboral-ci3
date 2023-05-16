@@ -1,15 +1,4 @@
-<footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-        <div class="text-muted">Copyright &copy; IESTP Ricardo Ramos Plata</div>
-    </div>
-</footer>
-
-
-<script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
-
-</body>
-
-</html><?php
+<?php
 //defined('BASEPATH') OR exit('No direct script access allowed');
 
 $this->load->view('app/layout/header');
