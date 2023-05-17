@@ -8,17 +8,36 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard</title>
-
+    <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css_ex/styles.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/css_ex/custom.css') ?>" rel="stylesheet" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>-->
+
+    <!--<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    </link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    </link>-->
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     </link>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     </link>
+    
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
+<script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/jquery-3.5.1.js') ?>"></script>
+<script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js_ex/scripts.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -29,13 +48,13 @@
             <strong>Bolsa Laboral RRP</strong></a>
 
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fa fa-bars"></i></button>
 
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-black" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <strong>Administrador</strong><i class="fas fa-user fa-fw"></i>
+                    <strong>Administrador</strong><i class="fa fa-user fa-fw"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Cambiar clave</a></li>
@@ -66,25 +85,25 @@
                         <div class="sb-sidenav-menu-heading">Core</div>-->
                         <img class="img login-logo rounded-circle mb-0" src="<?= base_url('assets/img/logo_2023.png') ?>" height="50" />
                         <a class="nav-link active" href="/admin/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
                             Inicio
                         </a>
                         <a class="nav-link collapsed" href="/admin/students/list">
-                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
                             Estudiantes/Egresados
                         </a>
                         <a class="nav-link collapsed" href="/admin/teachers/list">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-book"></i></div>
                             Docentes
                         </a>
                         <a class="nav-link" href="/admin/vacantes/list">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-area-chart"></i></div>
                             Convocatorias
                         </a>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-list-ul"></i></div>
                             Postulaciones
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fa fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
@@ -93,7 +112,7 @@
                             </nav>
                         </div>
                         <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-user-secret"></i></div>
                             Datos del administrador
                         </a>
                         <form class="ml-4" action="/logout">
