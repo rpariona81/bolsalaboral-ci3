@@ -11,10 +11,14 @@
             <p class="card-text">Fecha de publicación: <?= $convocatoria->date_publish ?></p>
             <p class="card-text">Fecha lìmite de postulación: <?= $convocatoria->date_vigency ?></p>
             <a class="btn btn-warning btn-lg" href="/users">Regresar</a>
-            <div class="d-grid gap-2 col-4 mx-auto float-end">
-
-                <button class="btn btn-success btn-lg" onclick="modal_postulante()"></i>Postular >>></button>
-            </div>
+            <?php
+                if ($this->session->userdata('user_rol') == 'estudiante') {
+                echo '<div class="d-grid gap-2 col-4 mx-auto float-end">';
+                echo '<button class="btn btn-success btn-lg" onclick="modal_postulante()"></i>Postular >>></button>';
+                echo '</div>';
+            } else {
+            }
+            ?>
         </div>
     </div>
 </div>
