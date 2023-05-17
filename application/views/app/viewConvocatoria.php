@@ -1,19 +1,18 @@
-
 <div class="align-items-md-stretch mt-5">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title"><?=$convocatoria->title?></h4>
+            <h4 class="card-title"><?= $convocatoria->title ?></h4>
         </div>
         <div class="card-body">
-            <strong class="card-title">Tipo de oferta: <?=$convocatoria->type_offer?></strong>
+            <strong class="card-title">Tipo de oferta: <?= $convocatoria->type_offer ?></strong>
             <br><br>
-            <p class="card-text">Detalle: <?=$convocatoria->detail?></p>
-            <p class="card-text">Número de vacantes: <?=$convocatoria->vacancy_numbers?></p>
-            <p class="card-text">Fecha de publicación: <?=$convocatoria->date_publish?></p>
-            <p class="card-text">Fecha lìmite de postulación: <?=$convocatoria->date_vigency?></p>
+            <p class="card-text">Detalle: <?= $convocatoria->detail ?></p>
+            <p class="card-text">Número de vacantes: <?= $convocatoria->vacancy_numbers ?></p>
+            <p class="card-text">Fecha de publicación: <?= $convocatoria->date_publish ?></p>
+            <p class="card-text">Fecha lìmite de postulación: <?= $convocatoria->date_vigency ?></p>
             <a class="btn btn-warning btn-lg" href="/users">Regresar</a>
             <div class="d-grid gap-2 col-4 mx-auto float-end">
-                
+
                 <button class="btn btn-success btn-lg" onclick="modal_postulante()"></i>Postular >>></button>
             </div>
         </div>
@@ -34,6 +33,9 @@
             </div>
             <div class="modal-body">
                 <form method='post' action='' enctype="multipart/form-data">
+                    <p>Puede agregar un mensaje:</p>
+                    <textarea class="form-control" id="msg_postulant" name="msg_postulant" value="$this->msg_postulant"></textarea>
+                    <br>
                     <p>Cargue archivo PDF (máx. 4 MB): </p>
                     <input type='file' name='file' id='file' class='form-control'><br>
                 </form>

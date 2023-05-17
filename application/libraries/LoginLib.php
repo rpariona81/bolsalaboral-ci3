@@ -32,13 +32,13 @@ class LoginLib
                         'user_name' => $user['name'],
                         'user_id' => $user['id'],
                         'user_rol' => $rol['rolename'],
-                        'user_id' => $rol['id'],
+                        'user_rol_id' => $rol['id'],
                     );
                     $this->ci->session->set_userdata( $arrayUser );
                     $this->isLogged = TRUE;
                     $this->ci->session->set_userdata( 'isLogged', $this->isLogged);
                 }else{
-                    $this->ci->session->flashdata('Error de usuario y/o contraseña.');
+                    $this->ci->session->set_flashdata('Error de usuario y/o contraseña.');
                     $this->isLogged = FALSE;
                 }
             }

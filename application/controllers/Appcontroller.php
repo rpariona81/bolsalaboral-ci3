@@ -15,6 +15,8 @@ class AppController extends CI_Controller
         parent::__construct();
         $this->load->helper(array('form', 'url', 'my_tag_helper'));
         $this->load->model('offerjobeloquent');
+        $this->load->model('postulatejobeloquent');
+        $this->load->model('usereloquent');
     }
     public function index()
     {
@@ -47,6 +49,7 @@ class AppController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') != NULL) {
             $data['pagina'] = 'app/viewPerfil';
+            $data['perfil'] = Usereloquent::findOrFail($this->session->userdata('user_id'));
             $this->load->view('app/layout/main', $data);
         } else {
             $this->session->set_flashdata('error', '');
@@ -57,7 +60,9 @@ class AppController extends CI_Controller
     public function viewPostulaciones()
     {
         if ($this->session->userdata('user_rol') != NULL) {
+            $data['query'] = Postulatejobeloquent::getPostulations($this->session->userdata('user_id'));
             $data['pagina'] = 'app/listPostulaciones';
+            //echo json_encode($data['query']);
             $this->load->view('app/layout/main', $data);
         } else {
             $this->session->set_flashdata('error', '');
@@ -75,6 +80,11 @@ class AppController extends CI_Controller
             $this->session->set_flashdata('error', '');
             redirect('/wp-login');
         }
+    }
+
+    public function cambiarClave()
+    {
+        
     }
 
     public function do_upload()

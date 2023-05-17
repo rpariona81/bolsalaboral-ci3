@@ -1,38 +1,31 @@
-
-<div class="align-items-md-stretch mt-5">
-    <div class="card">
-    <div class="card-header">
-        <h3> Cambiar clave de usuario: <?= $this->session->userdata('user_login'); ?></h3>
-                    <?= my_validation_errors(validation_errors()); ?>
-    </div>
-        <div class="card-body">
-                <?= form_open('home/cambiar_clave', array('class' => 'form-horizontal')); ?>
-                <div class="form-group">
-                    <?= form_label('Clave Actual', 'clave_act', array('class' => 'col-xs-2 control-label')); ?>
-                    <div class="col-xs-2">
-                        <?= form_input(array('type' => 'password', 'name' => 'clave_act', 'id' => 'clave_act', 'value' => set_value('clave_act'))); ?>
-                    </div>
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-md-8 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h3> Cambiar clave de usuario</h3>
+                    <hr>
                 </div>
-
-                <div class="form-group">
-                    <?= form_label('Clave Nueva', 'clave_new', array('class' => 'col-xs-2 control-label')); ?>
-                    <div class="col-xs-2">
-                        <?= form_input(array('type' => 'password', 'name' => 'clave_new', 'id' => 'clave_new', 'value' => set_value('clave_new'))); ?>
-                    </div>
+                <?= form_open('users/cambiarClave') ?>
+                <div class="mb-3">
+                    <label for="clave_act" class="form-label">Clave Actual</label>
+                    <input type="password" id="clave_act" class="form-control" name="clave_act" placeholder="Contraseña actual" required>
                 </div>
-
-                <div class="form-group">
-                    <?= form_label('Repita Nueva', 'clave_rep', array('class' => 'col-xs-2 control-label')); ?>
-                    <div class="col-xs-2">
-                        <?= form_input(array('type' => 'password', 'name' => 'clave_rep', 'id' => 'clave_rep', 'value' => set_value('clave_rep'))); ?>
-                    </div>
+                <div class="mb-3">
+                    <label for="clave_new" class="form-label">Clave Nueva</label>
+                    <input type="password" id="clave_new" class="form-control" name="clave_new" placeholder="Nueva contraseña" required>
                 </div>
-
-                <div class="form-actions col-xs-5 col-xs-offset-3">
-                    <?= form_button(array('type' => 'submit', 'content' => 'Confirmar', 'class' => 'btn btn-primary')); ?>
-                    <?= anchor('home/index', 'Cancelar', array('class' => 'btn btn-warning')); ?>
+                <div class="mb-3">
+                    <label for="clave_rep" class="form-label">Repita Nueva</label>
+                    <input type="password" id="clave_rep" class="form-control" name="clave_rep" placeholder="Repita nueva contraseña" required>
+                </div>
+                <div class="mb-3 d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        Cambiar clave
+                    </button>
                 </div>
                 <?= form_close(); ?>
+            </div>
         </div>
     </div>
 </div>

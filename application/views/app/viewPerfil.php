@@ -2,15 +2,15 @@
 <div class="align-items-md-stretch mt-5">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Actualizar datos:...</h4>
+            <h4 class="card-title">Actualización de datos</h4>
         </div>
         <div class="card-body">
-
-            <form class="row g-3 needs-validation" novalidate>
+        <?= form_open('users/actualizaDatos', array('class' => 'row g-3 needs-validation')); ?>
+            
                 <div class="col-md-4">
                     <label for="name" class="form-label">Tipo de Documento de identidad</label>
                     <select class="form-select" id="document_type" name="document_type" aria-label="Default select example" disabled>
-                        <option selected>$this->document_type</option>
+                        <option selected><?=$perfil->document_type?></option>
                         <option value="1">D.N.I.</option>
                         <option value="2">CARNET DE EXTRANJERÍA</option>
                         <option value="3">PASAPORTE</option>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="name" class="form-label">Número de documento</label>
-                    <input type="text" class="form-control" id="document_number" name="document_number" value="$this->document_number" disabled>
+                    <input type="text" class="form-control" id="document_number" name="document_number" value="<?=$perfil->document_number?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-4">
                     <label for="career_id" class="form-label">Programa de estudios</label>
                     <select class="form-select" id="career_id" name="career_id" aria-label="Default select example" disabled>
-                        <option selected>$this->career_id</option>
+                        <option selected><?=$perfil->career_id?></option>
                         <option value="1">Arquitectura de Plataformas y Servicios de Tecnologías de la Información</option>
                         <option value="2">Enfermería Técnica</option>
                         <option value="3">Farmacia Técnica</option>
@@ -36,21 +36,21 @@
                 </div>
                 <div class="col-md-4">
                     <label for="name" class="form-label">Nombres</label>
-                    <input type="text" class="form-control" id="name" name="name" value="$this->name" disabled>
+                    <input type="text" class="form-control" id="name" name="name" value="<?=$perfil->name?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="paternal_surname" class="form-label">Apellido paterno</label>
-                    <input type="text" class="form-control" id="paternal_surname" name="paternal_surname" value="$this->paternal_surname" disabled>
+                    <input type="text" class="form-control" id="paternal_surname" name="paternal_surname" value="<?=$perfil->paternal_surname?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="maternal_surname" class="form-label">Apellido materno</label>
-                    <input type="text" class="form-control" id="maternal_surname" name="maternal_surname" value="$this->maternal_surname" disabled>
+                    <input type="text" class="form-control" id="maternal_surname" name="maternal_surname" value="<?=$perfil->maternal_surname?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -58,14 +58,14 @@
                 <div class="col-md-2">
                     <label for="gender" class="form-label">Sexo</label>
                     <select class="form-select" id="gender" name="gender" aria-label="Default select example" disabled>
-                        <option selected>$this->gender</option>
+                        <option selected><?=$perfil->gender?></option>
                         <option value="Femenino">Femenino</option>
                         <option value="Masculino">Masculino</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="birthdate" class="form-label">Fecha nacimiento</label>
-                    <input type="date" class="form-control" id="birthdate" name="birthdate" value="$this->birthdate" disabled>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate" value="<?=$perfil->birthdate?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -74,7 +74,7 @@
                     <label for="username" class="form-label">Usuario</label>
                     <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" class="form-control" id="username" name="username" aria-describedby="inputGroupPrepend" value="$this->username" disabled>
+                        <input type="text" class="form-control" id="username" name="username" aria-describedby="inputGroupPrepend" value="<?=$perfil->username?>" disabled>
                         <div class="invalid-feedback">
                             Please choose a username.
                         </div>
@@ -82,14 +82,14 @@
                 </div>
                 <div class="col-md-2">
                     <label for="mobile" class="form-label">Teléfono celular:</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="$this->mobile" required>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="<?=$perfil->mobile?>" required>
                     <div class="invalid-feedback">
                         Please provide a valid city.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" value="$this->email">
+                    <input type="email" class="form-control" id="email" name="email" value="<?=$perfil->email?>">
                     <div class="invalid-feedback">
                         Please provide a valid city.
                     </div>
@@ -97,14 +97,14 @@
                 <div class="col-md-2">
                         <label for="graduated" class="form-label">Situación actual</label>
                         <select class="form-select" id="graduated" name="graduated" aria-label="Default select example" disabled>
-                        <option selected>$this->graduated</option>
+                        <option selected><?=$perfil->graduated?></option>
                         <option value="Estudiante">Estudiante</option>
                         <option value="Egresado">Egresado</option>
                     </select>
                     </div>
                     <div class="col-md-6">
                     <label for="address" class="form-label">Dirección actual</label>
-                    <input type="text" class="form-control" id="address" name="address" value="$this->address">
+                    <input type="text" class="form-control" id="address" name="address" value="<?=$perfil->address?>">
                     <div class="invalid-feedback">
                         Please provide a valid city.
                     </div>
@@ -114,7 +114,7 @@
                         <input class="btn btn-primary" type="submit" value="Actualizar datos"></input>
                     </div>
                 </div>
-            </form>
+            <?=form_close()?>
         </div>
     </div>
 </div>

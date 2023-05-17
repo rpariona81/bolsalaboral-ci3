@@ -21,6 +21,28 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    </link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    </link>
+    
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
+<script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/jquery-3.5.1.js') ?>"></script>
+<!--<script src="< ?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>-->
+<script src="<?= base_url('assets/js_ex/scripts.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+
+
+
+
+
 
 </head>
 
