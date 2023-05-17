@@ -9,60 +9,72 @@ class AppController extends CI_Controller
 {
 
 
+    private $accessoPermitido;
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(array('form', 'url'));
+        $this->load->helper(array('form', 'url', 'my_tag_helper'));
         $this->load->model('offerjobeloquent');
     }
     public function index()
     {
-
-        //$this->load->model('offerjobeloquent');
-
-        $data = [];
-        $data['rol'] = 'estudiante';
-        //$data['rol'] = 'docente';
-
-        $data['pagina'] = 'app/listConvocatorias';
-
-        $data['query'] = Offerjobeloquent::where('status', '=', 1)->get();
-
-        //echo $data['query'];
-        $this->load->view('app/layout/main', $data);
-
-        //$data['rol'] = session()->userdata['role'];
-
-        //echo "front";
+        //$accessoPermitido = $this->session->has_userdata('isLogged') ? $this->session->userdata('isLogged') : FALSE;
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data = [];
+            $data['rol'] = $this->session->userdata('user_rol');
+            $data['pagina'] = 'app/listConvocatorias';
+            $data['query'] = Offerjobeloquent::where('status', '=', 1)->get();
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-login');
+        }
     }
 
     public function viewConvocatoria($id = NULL)
     {
-        $data['rol'] = 'estudiante';
-        $data['convocatoria'] = $data['query'] = Offerjobeloquent::findOrFail($id);
-        $data['pagina'] = 'app/viewConvocatoria';
-        $this->load->view('app/layout/main', $data);
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data['convocatoria'] = $data['query'] = Offerjobeloquent::findOrFail($id);
+            $data['pagina'] = 'app/viewConvocatoria';
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error', '');
+            redirect('/wp-login');
+        }
     }
 
     public function viewPerfil()
     {
-        $data['rol'] = 'estudiante';
-        $data['pagina'] = 'app/viewPerfil';
-        $this->load->view('app/layout/main', $data);
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data['pagina'] = 'app/viewPerfil';
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error', '');
+            redirect('/wp-login');
+        }
     }
 
     public function viewPostulaciones()
     {
-        $data['rol'] = 'estudiante';
-        $data['pagina'] = 'app/listPostulaciones';
-        $this->load->view('app/layout/main', $data);
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data['pagina'] = 'app/listPostulaciones';
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error', '');
+            redirect('/wp-login');
+        }
     }
 
     public function viewCredenciales()
     {
-        $data['rol'] = 'estudiante';
-        $data['pagina'] = 'app/viewPerfil';
-        $this->load->view('app/layout/main', $data);
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data['rol'] = 'estudiante';
+            $data['pagina'] = 'app/viewCredencial';
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error', '');
+            redirect('/wp-login');
+        }
     }
 
     public function do_upload()

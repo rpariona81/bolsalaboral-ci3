@@ -26,4 +26,11 @@ class UserEloquent extends Eloquent{
     protected $casts = [
         'is_admin' => 'boolean',
     ];
+
+    public static function getUserBy($column, $value)
+    {
+        return UserEloquent::where($column, '=',$value)->first();
+    }
+
+
 }

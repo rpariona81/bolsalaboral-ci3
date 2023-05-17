@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/sticky-footer.css') ?>">
 
-    <link href="<?= base_url('assets/css/styles.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css_ex/styles.css') ?>" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 
@@ -34,7 +34,7 @@
                                 <div class="card-body">
                                     <!--< ?= dd(session('msg')) ?>-->
                                     <hr>
-                                    <?= form_open('') ?>
+                                    <?= form_open('authcontroller/loginUser') ?>
 
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="username" name="username" type="text" placeholder="Usuario" value="<?= set_value('username') ?>" size="50" required />
@@ -68,7 +68,7 @@
     </div>
     <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
-    <script src="<?= base_url('assets/js/scripts.js') ?>"></script>
+    <script src="<?= base_url('assets/js_ex/scripts.js') ?>"></script>
 </body>
 
 </html>

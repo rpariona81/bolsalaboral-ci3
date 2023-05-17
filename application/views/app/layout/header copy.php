@@ -9,18 +9,21 @@
     <meta name="generator" content="BolsaLaboral_1.0">
     <title>BolsaLaboral RRP</title>
 
-
+    
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
-
+    
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/styles.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/mystyle.css') ?>">
-    <!--<link rel="stylesheet" href="< ?= base_url('assets/css_ex/custom.css') ?>">-->
+    <!--<link rel="stylesheet" href="<?= base_url('assets/css_ex/custom.css') ?>">-->
     <link rel="stylesheet" href="<?= base_url('assets/css_ex/sticky-footer-navbar.css') ?>">
-
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
 
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
+    <script src="<?= base_url('assets/js/jquery-3.5.1.js') ?>"></script>
+    <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
 
 </head>
 
@@ -29,19 +32,18 @@
     <header>
 
         <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top bg-kadence" role="navigation">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-kadence">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/users">
-                        <img class="img rounded-circle mb-10" src="<?= base_url('assets/img/logoFondoBlack.png') ?>" height="50" />
-                        &nbsp;&nbspBOLSA LABORAL RRP
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <a class="navbar-brand" href="/users">
+                    <img class="img rounded-circle mb-10" src="<?= base_url('assets/img/logoFondoBlack.png') ?>" height="80" />
+                    &nbsp;&nbspBOLSA LABORAL RRP
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-items-center" id="navbarCollapse">
+                    
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/users">
                                 <i class="fa fa-area-chart"></i>
@@ -76,8 +78,7 @@
                         <input class="btn btn-small btn-warning" type="submit" value="Cerrar sesión de&nbsp;<?= strtoupper($this->session->userdata('user_rol')); ?>&nbsp;<?= strtoupper($this->session->userdata('user_login')); ?>">
                     </form>
                 </div>
-                <!--/.navbar-collapse -->
             </div>
         </nav>
     </header>
-    
+    <br>

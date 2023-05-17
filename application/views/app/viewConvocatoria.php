@@ -1,4 +1,4 @@
-<br>
+
 <div class="align-items-md-stretch mt-5">
     <div class="card">
         <div class="card-header">
@@ -11,8 +11,10 @@
             <p class="card-text">Número de vacantes: <?=$convocatoria->vacancy_numbers?></p>
             <p class="card-text">Fecha de publicación: <?=$convocatoria->date_publish?></p>
             <p class="card-text">Fecha lìmite de postulación: <?=$convocatoria->date_vigency?></p>
+            <a class="btn btn-warning btn-lg" href="/users">Regresar</a>
             <div class="d-grid gap-2 col-4 mx-auto float-end">
-                <button class="btn btn-success btn-lg" onclick="modal_postulante()"><i class="glyphicon glyphicon-plus"></i>Postular</button>
+                
+                <button class="btn btn-success btn-lg" onclick="modal_postulante()"></i>Postular >>></button>
             </div>
         </div>
     </div>
