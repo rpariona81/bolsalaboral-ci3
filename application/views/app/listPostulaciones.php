@@ -5,7 +5,7 @@
         Detalle
     </div>
     <div class="card-body">
-        <table id="datatablesSimple" class="display table table-responsive ">
+        <table id="datatablesSimple" class="table table-striped dt-responsive" style="width:100%">
             <thead>
                 <tr>
                     <th>Convocatoria</th>
@@ -39,18 +39,20 @@
     $(document).ready(function() {
         //$.noConflict();
         $('#datatablesSimple').DataTable({
+            pageLength: 5,
+            responsive: true,
+            scrollX: true,
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
             },
             dom: 'Bfrtip',
-            /*buttons: [{
+            buttons: [{
                 extend: 'excelHtml5',
                 customize: function(xlsx) {
                     var sheet = xlsx.xl.worksheets['sheet1.xml'];
-
                     $('row c[r^="C"]', sheet).attr('s', '2');
                 }
-            }]*/
+            }]
         });
     });
 </script>

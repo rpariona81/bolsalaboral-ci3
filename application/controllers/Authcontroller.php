@@ -31,4 +31,20 @@ class AuthController extends CI_Controller {
     {
         $this->load->view('auth/loginAdmin');
     }
+
+    public function loginAdmin()
+    {
+        $username = $this->input->post('username', true);
+        $password = $this->input->post('password', true);
+        //print_r($username);
+        $this->load->library('loginLib');
+        $util = new loginLib();
+        $checkAdmin = $util->getLoginAdmin($username, $password);
+        if($checkAdmin){
+            redirect('/admin');
+        }else{
+            redirect('/wp-admin');
+        }
+    }
+
 }

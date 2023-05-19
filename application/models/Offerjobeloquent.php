@@ -23,4 +23,10 @@ class OfferJobEloquent extends Eloquent{
     ];
 
     protected $dates = ['date_publish','date_vigency', 'updated_at'];
+
+    protected $casts = [
+        'date_publish' => 'datetime:Y-m-d',
+        'status' => 'boolean',
+        'vacancy_numbers' => 'integer'
+    ];
 }

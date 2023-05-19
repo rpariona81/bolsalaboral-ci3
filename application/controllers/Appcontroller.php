@@ -23,7 +23,7 @@ class AppController extends CI_Controller
         //$accessoPermitido = $this->session->has_userdata('isLogged') ? $this->session->userdata('isLogged') : FALSE;
         if ($this->session->userdata('user_rol') != NULL) {
             $data = [];
-            $data['rol'] = $this->session->userdata('user_rol');
+            //$data['rol'] = $this->session->userdata('user_rol');
             $data['pagina'] = 'app/listConvocatorias';
             $data['query'] = Offerjobeloquent::where('status', '=', 1)->get();
             $this->load->view('app/layout/main', $data);
@@ -36,7 +36,7 @@ class AppController extends CI_Controller
     public function viewConvocatoria($id = NULL)
     {
         if ($this->session->userdata('user_rol') != NULL) {
-            $data['convocatoria'] = $data['query'] = Offerjobeloquent::findOrFail($id);
+            $data['convocatoria'] = Offerjobeloquent::findOrFail($id);
             $data['pagina'] = 'app/viewConvocatoria';
             $this->load->view('app/layout/main', $data);
         } else {
@@ -73,7 +73,6 @@ class AppController extends CI_Controller
     public function viewCredenciales()
     {
         if ($this->session->userdata('user_rol') != NULL) {
-            $data['rol'] = 'estudiante';
             $data['pagina'] = 'app/viewCredencial';
             $this->load->view('app/layout/main', $data);
         } else {
