@@ -5,7 +5,7 @@
         <a class="btn btn-success btn-md" data-toggle="tooltip" data-placement="bottom" title="Crear nuevo registro" href="/admin/newconvocatoria">Nueva convocatoria&nbsp;&nbsp;<i class="fa fa-plus"></i></a>
     </div>
     <div class="card-body">
-        <table id="datatablesSimple" class="table table-striped dt-responsive" style="width:100%">
+        <table id="datatablesSimple" name="datatablesSimple" class="table table-striped dt-responsive" style="width:100%">
             <thead>
                 <tr>
                     <th>Convocatoria</th>
@@ -47,7 +47,7 @@
 </div>
 <!--<script src="< ?= base_url('assets/js/datatables-simple-demo.js') ?>"></script>-->
 
-<script>
+<!--<script>
     $(document).ready(function() {
         //$.noConflict();
         $('#datatablesSimple').DataTable({
@@ -68,4 +68,4 @@
             ]
         });
     });
-</script>
+</script>-->

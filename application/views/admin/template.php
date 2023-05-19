@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="icon" href="<?= base_url('assets/img/cropped-ricardo3-1-32x32.png') ?>">
     <title><?= getenv('APP_NAME') ?></title>
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css_ex/styles.css') ?>" rel="stylesheet" />
@@ -166,7 +167,9 @@
     <script>
         $(document).ready(function() {
             //$.noConflict();
-            $('#lista').DataTable({
+            $('#datatablesSimple').DataTable({
+                responsive: true,
+                scrollX: true,
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },

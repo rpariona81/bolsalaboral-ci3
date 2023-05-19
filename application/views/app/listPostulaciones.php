@@ -25,7 +25,7 @@
                         <td><?= $item->date_publish ?></td>
                         <td><?= $item->date_vigency ?></td>
                         <td><?= $item->date_postulation ?></td>
-                        <td><?= $item->route_filecv ?></td>
+                        <td><a target="_blank" href="<?= base_url('/uploads/filescv/'.$item->filecv); ?>">Ver&nbsp;&nbsp;<i class="fa fa-file-pdf-o" title="<?=$item->filecv?>"></i></a></td>
                         <td><?= $item->result ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -39,7 +39,7 @@
     $(document).ready(function() {
         //$.noConflict();
         $('#datatablesSimple').DataTable({
-            pageLength: 5,
+            pageLength: 4,
             responsive: true,
             scrollX: true,
             language: {

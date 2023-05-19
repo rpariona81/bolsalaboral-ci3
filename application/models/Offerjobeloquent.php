@@ -29,4 +29,12 @@ class OfferJobEloquent extends Eloquent{
         'status' => 'boolean',
         'vacancy_numbers' => 'integer'
     ];
+
+    public static function getOffersjobs()
+    {
+        //return PostulateJobEloquent::where('user_id', '=',$user_id)->get();
+        return OfferJobEloquent::join('t_careers', 't_offersjob.career_id','=','t_careers.id')
+            ->orderBy('t_offersjob.date_publish','desc')
+            ->get();
+    }
 }

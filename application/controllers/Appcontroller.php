@@ -83,29 +83,113 @@ class AppController extends CI_Controller
 
     public function cambiarClave()
     {
-        
     }
 
-    public function do_upload()
+    public function _do_upload()
     {
-        $config['upload_path']          = 'uploads/';
+        $config['upload_path']          = 'uploads/filescv/';
         $config['allowed_types']        = 'pdf';
         $config['max_size']             = 4096;
+        $config['file_name']             = round(microtime(true) * 1000);
 
         $this->load->library('upload', $config);
 
-        if ($this->input->post('upload') != NULL) {
+        if (!$this->upload->do_upload('filecv')) {
+            $error = array('error' => $this->upload->display_errors());
+            //print_r($error); die();
+            //$this->load->view('upload_form', $error);
+            $data['error_string'][] = 'Error de carga de archivo: ' . $this->upload->display_errors('', '');
+                $data['status'][] = FALSE;
+                echo json_encode($data);
+                exit();
+            //return $error;
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+            //print_r("Funciona!!");
+            //$route_filecv = $data['full_path'];
+            //print_r($data);
+            return $data;
+            //$this->load->view('upload_success', $data);
+        }
+
+        /*if (!$this->input->post('upload') != NULL) {
 
             if (!$this->upload->do_upload('filecv')) {
-                $error = array('error' => $this->upload->display_errors());
-
-                $this->load->view('upload_form', $error);
+                $data['inputerror'][] = 'filecv';
+                $data['error_string'][] = 'Error de carga de archivo: ' . $this->upload->display_errors('', '');
+                $data['status'][] = FALSE;
+                echo json_encode($data);
+                exit();
             } else {
-                $data = array('upload_data' => $this->upload->data());
-
-                $this->load->view('upload_success', $data);
+                return $this->upload->data('filecv');
             }
+        }*/
+    }
+
+    private function _validate()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if ($this->session->userdata('user_id') == NULL) {
+            $data['inputerror'][] = 'user_id';
+            $data['error_string'][] = 'No ha iniciado sesión correctamente';
+            $data['status'] = FALSE;
         }
+
+        if ($this->input->post('offer_id') == NULL) {
+            $data['inputerror'][] = 'offer_id';
+            $data['error_string'][] = 'No ha seleccionado oferta laboral';
+            $data['status'] = FALSE;
+        }
+
+        /*if ($this->input->post('date_postulation') == '') {
+            $data['inputerror'][] = 'date_postulation';
+            $data['error_string'][] = 'Error de fecha de postulación';
+            $data['status'] = FALSE;
+        }*/
+
+        if ($data['status'] === FALSE) {
+            echo json_encode($data);
+            //redirect()
+            exit();
+        }
+    }
+
+    public function postular()
+    {
+        //print_r($_FILES);
+        //$this->_do_upload();
+        $this->_validate();
+        date_default_timezone_set('America/Lima');
+
+        $data = array(
+            'user_id' => $this->session->userdata('user_id'),
+            'offer_id' => $this->input->post('offer_id'),
+            'msg_postulant' => $this->input->post('msg_postulant'),
+            'email_notification' => $this->session->userdata('user_email'),
+            'date_postulation' => date("Y-m-d H:i:s"),
+        );
+
+        if (!empty($_FILES)) {
+            $upload = $this->_do_upload();
+            if($upload){
+                $data['route_filecv'] = $upload['upload_data']['full_path'];
+                $data['filecv'] = $upload['upload_data']['file_name'];
+            }else{
+                return FALSE;
+            }
+            
+        }
+        
+        $model = new Postulatejobeloquent();
+        $model->fill($data);
+        $model->save($data);
+        //$this->postulatejobeloquent->save($data);
+        //echo json_encode($data);
+        redirect('/users/postulaciones');
     }
 }
 

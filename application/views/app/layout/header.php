@@ -9,7 +9,7 @@
     <meta name="generator" content="BolsaLaboral_1.0">
     <title><?= getenv('APP_NAME') ?></title>
 
-
+    <link rel="icon" href="<?= base_url('assets/img/cropped-ricardo3-1-32x32.png') ?>">
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
