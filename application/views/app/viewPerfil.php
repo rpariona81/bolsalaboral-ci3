@@ -11,9 +11,9 @@
                     <label for="name" class="form-label">Tipo de Documento de identidad</label>
                     <select class="form-select" id="document_type" name="document_type" aria-label="Default select example" disabled>
                         <option selected><?=$perfil->document_type?></option>
-                        <option value="1">D.N.I.</option>
-                        <option value="2">CARNET DE EXTRANJERÍA</option>
-                        <option value="3">PASAPORTE</option>
+                        <option value="1" <?= $perfil->document_type == 1 ? ' selected="selected"' : '';?>>D.N.I.</option>
+                        <option value="2" <?= $perfil->document_type == 2 ? ' selected="selected"' : '';?>>CARNET DE EXTRANJERÍA</option>
+                        <option value="3" <?= $perfil->document_type == 3 ? ' selected="selected"' : '';?>>PASAPORTE</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -26,12 +26,12 @@
                 <div class="col-md-4">
                     <label for="career_id" class="form-label">Programa de estudios</label>
                     <select class="form-select" id="career_id" name="career_id" aria-label="Default select example" disabled>
-                        <option selected><?=$perfil->career_id?></option>
-                        <option value="1">Arquitectura de Plataformas y Servicios de Tecnologías de la Información</option>
-                        <option value="2">Enfermería Técnica</option>
-                        <option value="3">Farmacia Técnica</option>
-                        <option value="4">Tecnología Pesquera y Acuícola</option>
-                        <option value="5">Desarrollo pesquero y acuícola</option>
+                        <option value="">Seleccione</option>
+                        <option value="1" <?= $perfil->career_id == 1 ? ' selected="selected"' : '';?>>Arquitectura de Plataformas y Servicios de Tecnologías de la Información</option>
+                        <option value="2" <?= $perfil->career_id == 2 ? ' selected="selected"' : '';?>>Enfermería Técnica</option>
+                        <option value="3" <?= $perfil->career_id == 3 ? ' selected="selected"' : '';?>>Farmacia Técnica</option>
+                        <option value="4" <?= $perfil->career_id == 4 ? ' selected="selected"' : '';?>>Tecnología Pesquera y Acuícola</option>
+                        <option value="5" <?= $perfil->career_id == 5 ? ' selected="selected"' : '';?>>Desarrollo pesquero y acuícola</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -59,13 +59,13 @@
                     <label for="gender" class="form-label">Sexo</label>
                     <select class="form-select" id="gender" name="gender" aria-label="Default select example" disabled>
                         <option selected><?=$perfil->gender?></option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino" <?= $perfil->gender == 'Femenino' ? ' selected="selected"' : '';?>>Femenino</option>
+                        <option value="Masculino" <?= $perfil->gender == 'Masculino' ? ' selected="selected"' : '';?>>Masculino</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="birthdate" class="form-label">Fecha nacimiento</label>
-                    <input type="date" class="form-control" id="birthdate" name="birthdate" value="<?=$perfil->birthdate?>" disabled>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate" value="<?= $perfil->birthdate ? date_format($perfil->birthdate,'Y-m-d') : ''; ?>" disabled>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -97,9 +97,9 @@
                 <div class="col-md-2">
                         <label for="graduated" class="form-label">Situación actual</label>
                         <select class="form-select" id="graduated" name="graduated" aria-label="Default select example" disabled>
-                        <option selected><?=$perfil->graduated?></option>
-                        <option value="Estudiante">Estudiante</option>
-                        <option value="Egresado">Egresado</option>
+                        <option value="">Seleccione</option>
+                        <option value="Estudiante" <?= $perfil->graduated == 'Estudiante' ? ' selected="selected"' : '';?>>Estudiante</option>
+                        <option value="Egresado" <?= $perfil->graduated == 'Egresado' ? ' selected="selected"' : '';?>>Egresado</option>
                     </select>
                     </div>
                     <div class="col-md-6">

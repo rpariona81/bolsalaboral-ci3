@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Ricardo Ramos Plata">
     <meta name="generator" content="BolsaLaboral_1.0">
-    <title>BolsaLaboral RRP</title>
+    <title><?= getenv('APP_NAME') ?></title>
 
 
     <link href="<?= base_url('assets/font-awesome/4.7.0/css/font-awesome.min.css') ?>" rel="stylesheet">

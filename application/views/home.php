@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Welcome to CodeIgniter</title>
+  <title><?= getenv('APP_NAME') ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!--<link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">-->
   <link rel="icon" href="<?= base_url('assets/img/cropped-ricardo3-1-32x32.png') ?>">
