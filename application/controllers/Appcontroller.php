@@ -87,7 +87,7 @@ class AppController extends CI_Controller
 
     public function _do_upload()
     {
-        $config['upload_path']          = 'uploads/filescv/';
+        $config['upload_path']          = FCPATH.'uploads/filescv/';
         $config['allowed_types']        = 'pdf';
         $config['max_size']             = 4096;
         $config['file_name']             = round(microtime(true) * 1000);
