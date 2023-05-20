@@ -67,7 +67,7 @@
             
             <div class="col-12">
                 <div class="float-end">
-                <a href="/admin/convocatorias" class="btn btn-danger" type="button">Cancelar</a>
+                    <a href="/admin/convocatorias" class="btn btn-danger" type="button">Cancelar</a>
                     <input class="btn btn-primary" type="submit" value="Actualizar convocatoria"></input>
                 </div>
             </div>

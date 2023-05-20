@@ -93,11 +93,11 @@
                             <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
                             Inicio
                         </a>
-                        <a class="nav-link collapsed" href="/admin/students/list">
+                        <a class="nav-link collapsed" href="/admin/estudiantes">
                             <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
                             Estudiantes/Egresados
                         </a>
-                        <a class="nav-link collapsed" href="/admin/teachers/list">
+                        <a class="nav-link collapsed" href="/admin/docentes">
                             <div class="sb-nav-link-icon"><i class="fa fa-book"></i></div>
                             Docentes
                         </a>

@@ -71,3 +71,7 @@ $route['admin'] = 'admincontroller/index';
 $route['admin/convocatorias'] = 'admincontroller/verConvocatorias';
 $route['admin/newconvocatoria'] = 'admincontroller/nuevaConvocatoria';
 $route['admin/convocatoria/(:num)'] = 'admincontroller/editaConvocatoria/$1';
+
+$route['admin/estudiantes'] = 'admincontroller/verEstudiantes';
+$route['admin/newestudiante'] = 'admincontroller/nuevoEstudiante';
+$route['admin/estudiante/(:num)'] = 'admincontroller/editaEstudiante/$1';

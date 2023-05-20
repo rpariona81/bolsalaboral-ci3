@@ -24,6 +24,10 @@ class AdminController extends CI_Controller
         }
     }
 
+    /**
+     * CONTROL DE CONVOCATORIAS
+     *  */ 
+
     public function verConvocatorias()
     {
         if ($this->session->userdata('user_rol') == 'admin') {
@@ -105,7 +109,7 @@ class AdminController extends CI_Controller
             $model = Offerjobeloquent::findOrFail($id);
             $model->fill($data);
             $model->save($data);
-            redirect('/admin/convocatorias');
+            redirect('/admin/convocatorias','refresh');
         } else {
             echo "fallo actualizacion";
         }
@@ -115,17 +119,10 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $id = $this->input->post('id', true);
-            /*$data = array(
-                'id' => $id,
-                'status' => '0'
-            );*/
             $model = Offerjobeloquent::find($id);
             $model->status = 0;
             $model->save();
-            //$model = Offerjobeloquent::findOrFail($id);
-            //print_r($model);
             redirect('/admin/convocatorias','refresh');
-            //redirect('/admin/convocatorias');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -136,22 +133,274 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $id = $this->input->post('id');
-            /*$data = array(
-                'id' => $id,
-                'status' => '1'
-            );*/
             $model = Offerjobeloquent::find($id);
-            //$model->fill($data);
             $model->status = 1;
             $model->save();
-            //print_r($model);
-            redirect('/admin/convocatorias','refresh');
-            //redirect('/admin/convocatorias');
+            redirect('/admin/convocatorias','refresh');            
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
         }
     }
+
+    /**
+     * CONTROL DE ESTUDIANTES Y EGRESADOS
+     *  */ 
+    public function verEstudiantes()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['query'] = UserEloquent::getUserEstudiantes();
+            $data['contenido'] = 'admin/estudianteTable';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function nuevoEstudiante()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['contenido'] = 'admin/estudianteNew';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function creaEstudiante()
+    {
+        //$this->_validate();
+        date_default_timezone_set('America/Lima');
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data = array(
+                'document_type' => $this->input->post('document_type'),
+                'document_number' => $this->input->post('document_number'),
+                'career_id' => $this->input->post('career_id'),
+                'name' => $this->input->post('name'),
+                'paternal_surname' => $this->input->post('paternal_surname'),
+                'maternal_surname' => $this->input->post('maternal_surname'),
+                'gender' => $this->input->post('gender'),
+                'birthdate' => $this->input->post('birthdate'),
+                'username' => $this->input->post('username'),
+                'mobile' => $this->input->post('mobile'),
+                'email' => $this->input->post('email'),
+                'graduated' => $this->input->post('graduated'),
+                'address' => $this->input->post('address'),
+                'role_id' => '4'
+            );
+
+            $model = new UserEloquent();
+            $model->fill($data);
+            $model->save($data);
+            redirect('/admin/estudiantes');
+        } else {
+            redirect('/admin/newestudiante');
+        }
+    }
+
+    public function editaEstudiante($id)
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['usuario'] = UserEloquent::findOrFail($id);
+            $data['contenido'] = 'admin/estudianteEdit';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function actualizaEstudiante()
+    {
+        //$this->_validate();
+        date_default_timezone_set('America/Lima');
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $data = array(
+                'document_type' => $this->input->post('document_type'),
+                'document_number' => $this->input->post('document_number'),
+                'career_id' => $this->input->post('career_id'),
+                'name' => $this->input->post('name'),
+                'paternal_surname' => $this->input->post('paternal_surname'),
+                'maternal_surname' => $this->input->post('maternal_surname'),
+                'gender' => $this->input->post('gender'),
+                'birthdate' => $this->input->post('birthdate'),
+                'username' => $this->input->post('username'),
+                'mobile' => $this->input->post('mobile'),
+                'email' => $this->input->post('email'),
+                'graduated' => $this->input->post('graduated'),
+                'address' => $this->input->post('address')
+            );
+
+            $model = UserEloquent::findOrFail($id);
+            $model->fill($data);
+            $model->save();
+            redirect('/admin/estudiantes','refresh');
+        } else {
+            echo "fallo actualizacion";
+        }
+    }
+
+    public function desactivaEstudiante()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id', true);
+            $model = UserEloquent::find($id);
+            $model->status = 0;
+            $model->save();
+            redirect('/admin/estudiantes','refresh');
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function activaEstudiante()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $model = UserEloquent::find($id);
+            $model->status = 1;
+            $model->save();
+            redirect('/admin/estudiantes','refresh');            
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+        /**
+     * CONTROL DE DOCENTES
+     *  */ 
+    public function verDocentes()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['query'] = UserEloquent::getUserDocentes();
+            $data['contenido'] = 'admin/docenteTable';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function nuevoDocente()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['contenido'] = 'admin/docenteNew';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function creaDocente()
+    {
+        //$this->_validate();
+        date_default_timezone_set('America/Lima');
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data = array(
+                'document_type' => $this->input->post('document_type'),
+                'document_number' => $this->input->post('document_number'),
+                'career_id' => $this->input->post('career_id'),
+                'name' => $this->input->post('name'),
+                'paternal_surname' => $this->input->post('paternal_surname'),
+                'maternal_surname' => $this->input->post('maternal_surname'),
+                'gender' => $this->input->post('gender'),
+                'birthdate' => $this->input->post('birthdate'),
+                'username' => $this->input->post('username'),
+                'mobile' => $this->input->post('mobile'),
+                'email' => $this->input->post('email'),
+                'graduated' => $this->input->post('graduated'),
+                'address' => $this->input->post('address'),
+				'role_id' => '3'
+            );
+
+            $model = new UserEloquent();
+            $model->fill($data);
+            $model->save($data);
+            redirect('/admin/Docentes');
+        } else {
+            redirect('/admin/newdocente');
+        }
+    }
+
+    public function editaDocente($id)
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['usuario'] = UserEloquent::findOrFail($id);
+            $data['contenido'] = 'admin/docenteEdit';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function actualizaDocente()
+    {
+        //$this->_validate();
+        date_default_timezone_set('America/Lima');
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $data = array(
+                'document_type' => $this->input->post('document_type'),
+                'document_number' => $this->input->post('document_number'),
+                'career_id' => $this->input->post('career_id'),
+                'name' => $this->input->post('name'),
+                'paternal_surname' => $this->input->post('paternal_surname'),
+                'maternal_surname' => $this->input->post('maternal_surname'),
+                'gender' => $this->input->post('gender'),
+                'birthdate' => $this->input->post('birthdate'),
+                'username' => $this->input->post('username'),
+                'mobile' => $this->input->post('mobile'),
+                'email' => $this->input->post('email'),
+                'graduated' => $this->input->post('graduated'),
+                'address' => $this->input->post('address')
+            );
+
+            $model = UserEloquent::findOrFail($id);
+            $model->fill($data);
+            $model->save();
+            redirect('/admin/Docentes','refresh');
+        } else {
+            echo "fallo actualizacion";
+        }
+    }
+
+    public function desactivaDocente()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id', true);
+            $model = UserEloquent::find($id);
+            $model->status = 0;
+            $model->save();
+            redirect('/admin/Docentes','refresh');
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function activaDocente()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $model = UserEloquent::find($id);
+            $model->status = 1;
+            $model->save();
+            redirect('/admin/Docentes','refresh');            
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+
 }
 
 /* End of file Controllername.php */
+
