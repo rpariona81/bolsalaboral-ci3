@@ -91,6 +91,33 @@ class AdminController extends CI_Controller {
         
     }
 
+    public function actualizaConvocatoria()
+    {
+        //$this->_validate();
+        date_default_timezone_set('America/Lima');
+        if($this->session->userdata('user_rol') == 'admin'){
+            $id = $this->input->post('id');
+            $data = array(
+                'title' => $this->input->post('title'),
+                'type_offer' => $this->input->post('type_offer'),
+                'career_id' => $this->input->post('career_id'),
+                'detail' => $this->input->post('detail'),
+                'vacancy_numbers' => $this->input->post('vacancy_numbers'),
+                'date_publish' => $this->input->post('date_publish'),
+                'date_vigency' => $this->input->post('date_vigency')
+            );
+    
+            $model = Offerjobeloquent::findOrFail($id);
+            $model->fill($data);
+            $model->save($data);
+            //$this->postulatejobeloquent->save($data);
+            //echo json_encode($data);
+            redirect('/admin/convocatorias');
+        }else{
+            echo "fallo actualizacion";
+        }
+    }
+
 }
 
 /* End of file Controllername.php */

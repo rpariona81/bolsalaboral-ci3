@@ -4,9 +4,10 @@
             <h4 class="card-title">Editar convocatoria</h4>
         </div>
         <div class="card-body">
-            <?= form_open('admin/actualizaConvocatoria', array('class' => 'row g-3 needs-validation')); ?>
+            <?= form_open('admincontroller/actualizaConvocatoria', array('class' => 'row g-3 needs-validation')); ?>
             <div class="col-md-4">
                 <label for="title" class="form-label">Título</label>
+                <input type="hidden" value="<?=$convocatoria->id?>" name="id" id="id">
                 <input type="text" class="form-control" id="title" name="title" value="<?= $convocatoria->title ?>">
                 <div class="valid-feedback">
                     Looks good!

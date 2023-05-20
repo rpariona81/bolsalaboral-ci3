@@ -168,6 +168,7 @@
         $(document).ready(function() {
             //$.noConflict();
             $('#datatablesSimple').DataTable({
+                pageLength: 7,
                 responsive: true,
                 scrollX: true,
                 language: {
