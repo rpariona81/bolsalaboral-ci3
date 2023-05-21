@@ -11,6 +11,10 @@ class AdminController extends CI_Controller
         $this->load->model('offerjobeloquent');
         $this->load->model('postulatejobeloquent');
         $this->load->model('usereloquent');
+        $this->form_validation->set_message('no_repetir_username', 'Existe otro registro con el mismo %s');
+        $this->form_validation->set_message('no_repetir_email', 'Existe otro registro con el mismo %s');
+        $this->form_validation->set_message('no_repetir_document', 'Existe otro registro con el mismo %s');
+        
     }
 
     public function index()
@@ -26,7 +30,7 @@ class AdminController extends CI_Controller
 
     /**
      * CONTROL DE CONVOCATORIAS
-     *  */ 
+     *  */
 
     public function verConvocatorias()
     {
@@ -109,7 +113,7 @@ class AdminController extends CI_Controller
             $model = Offerjobeloquent::findOrFail($id);
             $model->fill($data);
             $model->save($data);
-            redirect('/admin/convocatorias','refresh');
+            redirect('/admin/convocatorias', 'refresh');
         } else {
             echo "fallo actualizacion";
         }
@@ -122,7 +126,7 @@ class AdminController extends CI_Controller
             $model = Offerjobeloquent::find($id);
             $model->status = 0;
             $model->save();
-            redirect('/admin/convocatorias','refresh');
+            redirect('/admin/convocatorias', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -136,7 +140,7 @@ class AdminController extends CI_Controller
             $model = Offerjobeloquent::find($id);
             $model->status = 1;
             $model->save();
-            redirect('/admin/convocatorias','refresh');            
+            redirect('/admin/convocatorias', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -145,7 +149,7 @@ class AdminController extends CI_Controller
 
     /**
      * CONTROL DE ESTUDIANTES Y EGRESADOS
-     *  */ 
+     *  */
     public function verEstudiantes()
     {
         if ($this->session->userdata('user_rol') == 'admin') {
@@ -162,9 +166,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['contenido'] = 'admin/estudianteNew';
-            $fechaactual = date('Y-m-d');// 2016-12-29
-            $nuevafecha = strtotime ('-16 year' , strtotime($fechaactual)); //Se resta un año menos
-            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
+            $fechaactual = date('Y-m-d'); // 2016-12-29
+            $nuevafecha = strtotime('-16 year', strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date('Y-m-d', $nuevafecha);
             $this->load->view('admin/template', $data);
         } else {
             $this->session->set_flashdata('error');
@@ -172,36 +176,92 @@ class AdminController extends CI_Controller
         }
     }
 
+    public function no_repetir_username($username)
+    {
+        $usuario = UserEloquent::getUserBy('username', $username);
+        if ($usuario) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function no_repetir_email($email)
+    {
+        $usuario = UserEloquent::getUserBy('email', $email);
+        if ($usuario) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function no_repetir_document($document)
+    {
+        $usuario = UserEloquent::getUserBy('document_number', $document);
+        if ($usuario) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+
     public function creaEstudiante()
     {
         //$this->_validate();
-        date_default_timezone_set('America/Lima');
-        if ($this->session->userdata('user_rol') == 'admin') {
-            $data = array(
-                'document_type' => $this->input->post('document_type'),
-                'document_number' => $this->input->post('document_number'),
-                'career_id' => $this->input->post('career_id'),
-                'name' => $this->input->post('name'),
-                'paternal_surname' => $this->input->post('paternal_surname'),
-                'maternal_surname' => $this->input->post('maternal_surname'),
-                'gender' => $this->input->post('gender'),
-                'birthdate' => $this->input->post('birthdate'),
-                'username' => $this->input->post('username'),
-                'mobile' => $this->input->post('mobile'),
-                'email' => $this->input->post('email'),
-                'graduated' => $this->input->post('graduated'),
-                'address' => $this->input->post('address'),
-                'password' => password_hash($this->input->post('password'),PASSWORD_BCRYPT),
-                'remember_token' => base64_encode($this->input->post('password')),
-                'role_id' => '4'
-            );
-            $model = new UserEloquent();
-            $model->fill($data);
-            $model->save();
-            //print_r($model);
-            redirect('/admin/estudiantes');
+        /*$usuario = UserEloquent::getUserBy('username', $this->input->post('username'));
+        //$query = $this->ci->db->get('usuarios');
+        if ($usuario) {
+            //redirect('/admin/newestudiante');
+            //return FALSE;
+            $this->nuevoEstudiante();
         } else {
-            redirect('/admin/newestudiante');
+            $usuario = UserEloquent::getUserBy('email', $this->input->post('email'));
+            if ($usuario) {
+                //return FALSE;
+                $this->nuevoEstudiante();
+                //redirect('/admin/newestudiante');
+            } else {*/
+        $this->form_validation->set_rules('name', 'Nombres', 'required');
+        $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
+        $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        //si el proceso falla mostramos errores
+        if ($this->form_validation->run() == FALSE) {
+            $this->nuevoEstudiante();
+            //en otro caso procesamos los datos
+        } else {
+
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $data = array(
+                    'document_type' => $this->input->post('document_type'),
+                    'document_number' => $this->input->post('document_number'),
+                    'career_id' => $this->input->post('career_id'),
+                    'name' => $this->input->post('name'),
+                    'paternal_surname' => $this->input->post('paternal_surname'),
+                    'maternal_surname' => $this->input->post('maternal_surname'),
+                    'gender' => $this->input->post('gender'),
+                    'birthdate' => $this->input->post('birthdate'),
+                    'username' => $this->input->post('username'),
+                    'mobile' => $this->input->post('mobile'),
+                    'email' => $this->input->post('email'),
+                    'graduated' => $this->input->post('graduated'),
+                    'address' => $this->input->post('address'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                    'remember_token' => base64_encode($this->input->post('password')),
+                    'role_id' => '4'
+                );
+                $model = new UserEloquent();
+                $model->fill($data);
+                $model->save();
+                //print_r($model);
+                redirect('/admin/estudiantes');
+            } else {
+                redirect('/admin/newestudiante');
+            }
+            //}
         }
     }
 
@@ -209,9 +269,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['usuario'] = UserEloquent::findOrFail($id);
-            $fechaactual = date('Y-m-d');// 2016-12-29
-            $nuevafecha = strtotime ('-16 year' , strtotime($fechaactual)); //Se resta un año menos
-            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
+            $fechaactual = date('Y-m-d'); // 2016-12-29
+            $nuevafecha = strtotime('-16 year', strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date('Y-m-d', $nuevafecha);
             $data['contenido'] = 'admin/estudianteEdit';
             $this->load->view('admin/template', $data);
         } else {
@@ -246,13 +306,13 @@ class AdminController extends CI_Controller
             if (password_verify($this->input->post('password'), $model->password)) {
                 $data['password'] = $model->password;
                 $data['remember_token'] = $model->remember_token;
-            }else{
-                $data['password'] = password_hash($this->input->post('password'),PASSWORD_BCRYPT);
+            } else {
+                $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
                 $data['remember_token'] = base64_encode($this->input->post('password'));
             }
             $model->fill($data);
             $model->save();
-            redirect('/admin/estudiantes','refresh');
+            redirect('/admin/estudiantes', 'refresh');
         } else {
             echo "fallo actualizacion";
         }
@@ -265,7 +325,7 @@ class AdminController extends CI_Controller
             $model = UserEloquent::find($id);
             $model->status = 0;
             $model->save();
-            redirect('/admin/estudiantes','refresh');
+            redirect('/admin/estudiantes', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -279,16 +339,16 @@ class AdminController extends CI_Controller
             $model = UserEloquent::find($id);
             $model->status = 1;
             $model->save();
-            redirect('/admin/estudiantes','refresh');            
+            redirect('/admin/estudiantes', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
         }
     }
 
-        /**
+    /**
      * CONTROL DE DOCENTES
-     *  */ 
+     *  */
     public function verDocentes()
     {
         if ($this->session->userdata('user_rol') == 'admin') {
@@ -305,9 +365,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['contenido'] = 'admin/docenteNew';
-            $fechaactual = date('Y-m-d');// 2016-12-29
-            $nuevafecha = strtotime ('-21 year' , strtotime($fechaactual)); //Se resta un año menos
-            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
+            $fechaactual = date('Y-m-d'); // 2016-12-29
+            $nuevafecha = strtotime('-21 year', strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date('Y-m-d', $nuevafecha);
             $this->load->view('admin/template', $data);
         } else {
             $this->session->set_flashdata('error');
@@ -334,9 +394,9 @@ class AdminController extends CI_Controller
                 'email' => $this->input->post('email'),
                 'graduated' => $this->input->post('graduated'),
                 'address' => $this->input->post('address'),
-                'password' => password_hash($this->input->post('password'),PASSWORD_BCRYPT),
+                'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
                 'remember_token' => base64_encode($this->input->post('password')),
-				'role_id' => '3'
+                'role_id' => '3'
             );
 
             $model = new UserEloquent();
@@ -352,9 +412,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['usuario'] = UserEloquent::findOrFail($id);
-            $fechaactual = date('Y-m-d');// 2016-12-29
-            $nuevafecha = strtotime ('-21 year' , strtotime($fechaactual)); //Se resta un año menos
-            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
+            $fechaactual = date('Y-m-d'); // 2016-12-29
+            $nuevafecha = strtotime('-21 year', strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date('Y-m-d', $nuevafecha);
             $data['contenido'] = 'admin/docenteEdit';
             $this->load->view('admin/template', $data);
         } else {
@@ -389,13 +449,13 @@ class AdminController extends CI_Controller
             if (password_verify($this->input->post('password'), $model->password)) {
                 $data['password'] = $model->password;
                 $data['remember_token'] = $model->remember_token;
-            }else{
-                $data['password'] = password_hash($this->input->post('password'),PASSWORD_BCRYPT);
+            } else {
+                $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
                 $data['remember_token'] = base64_encode($this->input->post('password'));
             }
             $model->fill($data);
             $model->save();
-            redirect('/admin/docentes','refresh');
+            redirect('/admin/docentes', 'refresh');
         } else {
             echo "fallo actualizacion";
         }
@@ -408,7 +468,7 @@ class AdminController extends CI_Controller
             $model = UserEloquent::find($id);
             $model->status = FALSE;
             $model->save();
-            redirect('/admin/docentes','refresh');
+            redirect('/admin/docentes', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -422,16 +482,16 @@ class AdminController extends CI_Controller
             $model = UserEloquent::find($id);
             $model->status = TRUE;
             $model->save();
-            redirect('/admin/docentes','refresh');            
+            redirect('/admin/docentes', 'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
         }
     }
 
-/**
+    /**
      * CONTROL DE POSTULACIONES
-     *  */ 
+     *  */
 
     public function verPostulaciones($offer_id = NULL)
     {
@@ -450,13 +510,13 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $id = $this->input->post('id');
-            $programa = '/admin/postulaciones/'.$this->input->post('career_id');
+            $programa = '/admin/postulaciones/' . $this->input->post('career_id');
             $model = PostulateJobEloquent::find($id);
             $model->status = 0;
             $model->save();
             //print_r($programa);
             //redirect('/admin/postulaciones','refresh');    
-            redirect($programa.'','refresh');        
+            redirect($programa . '', 'refresh');
             //redirect(site_url(uri_string()),'refresh');
         } else {
             $this->session->set_flashdata('error');
@@ -468,22 +528,19 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $id = $this->input->post('id');
-            $programa = '/admin/postulaciones/'.$this->input->post('career_id');
+            $programa = '/admin/postulaciones/' . $this->input->post('career_id');
             $model = PostulateJobEloquent::find($id);
             $model->status = 1;
             $model->save();
             //print_r($programa);
             //redirect('/admin/postulaciones','refresh');    
-            redirect($programa.'','refresh');        
+            redirect($programa . '', 'refresh');
             //redirect(site_url(uri_string()),'refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
         }
     }
-    
-
 }
 
 /* End of file Controllername.php */
-

@@ -2,7 +2,9 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Nuevo usuario</h4>
+            
         </div>
+        <?= my_validation_errors(validation_errors()); ?>
         <div class="card-body">
             <?= form_open('admincontroller/creaEstudiante', array('class' => 'row g-3 needs-validation')); ?>
 
