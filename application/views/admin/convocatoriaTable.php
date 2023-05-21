@@ -8,6 +8,7 @@
         <table id="datatablesSimple" name="datatablesSimple" class="display datatable table-striped dt-responsive" style="width:100%">
             <thead>
                 <tr>
+                    <th>Cod Oferta</th>
                     <th>Programa de estudios</th>
                     <th>Convocatoria</th>
                     <th>Tipo</th>
@@ -21,6 +22,7 @@
             <tbody>
                 <?php foreach ($query as $item) : ?>
                     <tr>
+                        <td><?= str_pad($item->id, 6, '0', STR_PAD_LEFT); ?></td>
                         <td><?= $item->career_title ?></td>
                         <td><?= $item->title ?></td>
                         <td><?= $item->type_offer ?></td>
@@ -57,6 +59,29 @@
         </table>
     </div>
 </div>
+
+<script>
+        $(document).ready(function() {
+            //$.noConflict();
+            $('#datatablesSimple').DataTable({
+                pageLength: 7,
+                responsive: true,
+                scrollX: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'excelHtml5',
+                    customize: function(xlsx) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        $('row c[r^="C"]', sheet).attr('s', '2');
+                    }
+                }]
+            });
+        });
+    </script>
+
 <!--<script src="< ?= base_url('assets/js/datatables-simple-demo.js') ?>"></script>-->
 
 <!--<script>

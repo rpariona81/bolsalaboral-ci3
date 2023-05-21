@@ -25,7 +25,14 @@
                         <td><?= $item->date_publish ?></td>
                         <td><?= $item->date_vigency ?></td>
                         <td><?= $item->date_postulation ?></td>
-                        <td><a target="_blank" href="<?= base_url('/uploads/filescv/'.$item->filecv); ?>">Ver&nbsp;&nbsp;<i class="fa fa-file-pdf-o" title="<?=$item->filecv?>"></i></a></td>
+                        <td class="text-center">
+                        <?php
+                            if ($item->filecv == NULL) {
+
+                            }else{
+                                echo '<a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Descargar CV" target="_blank" download="'.$item->filecv.'" href="'.base_url('/uploads/filescv/' . $item->filecv).'"><i class="fa fa-file-pdf-o" title="'. $item->filecv .'"></i></a></td>';
+                            }
+                        ?>
                         <td><?= $item->result ?></td>
                     </tr>
                 <?php endforeach; ?>

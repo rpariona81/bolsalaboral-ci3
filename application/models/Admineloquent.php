@@ -24,7 +24,8 @@ class AdminEloquent extends Eloquent{
     ];
 
     protected $casts = [
-        'is_admin' => 'boolean',
+        'birthdate' => 'datetime:Y-m-d',
+        'status' => 'boolean'
     ];
 
     public static function getAdminBy($column, $value)

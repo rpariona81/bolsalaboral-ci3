@@ -21,7 +21,7 @@ class LoginLib
     {
         $this->ci->load->model('Usereloquent');
         $user = UserEloquent::getUserBy('username', $user);
-        if($user){
+        if($user->status){
             if(password_verify($pass, $user['password'])){
                 //$this->isLogged = TRUE;
                 $this->ci->load->model('Roleeloquent');
@@ -44,6 +44,7 @@ class LoginLib
                 }
             }
         }else{
+            $this->ci->session->set_flashdata('Este usuario no existe o está desactivado.');
             $this->isLogged = FALSE;
         }
         return $this->isLogged;

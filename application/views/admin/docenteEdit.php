@@ -1,10 +1,10 @@
 <div class="align-items-md-stretch mt-5">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Actualización de datos</h4>
+            <h4 class="card-title">Actualización de datos del docente</h4>
         </div>
         <div class="card-body">
-            <?= form_open('admincontroller/actualizaEstudiante', array('class' => 'row g-3 needs-validation')); ?>
+            <?= form_open('admincontroller/actualizaDocente', array('class' => 'row g-3 needs-validation')); ?>
             <input type="hidden" value="<?= $usuario->id ?>" name="id" id="id">
             <div class="col-md-4">
                 <label for="name" class="form-label">Tipo de Documento de identidad (*)</label>
@@ -101,8 +101,8 @@
                 <label for="graduated" class="form-label">Condición actual (*)</label>
                 <select class="form-select" id="graduated" name="graduated" aria-label="Default select example" required>
                     <option value="">Seleccione</option>
-                    <option value="Estudiante" <?= $usuario->graduated == 'Estudiante' ? ' selected="selected"' : ''; ?>>Estudiante</option>
-                    <option value="Egresado" <?= $usuario->graduated == 'Egresado' ? ' selected="selected"' : ''; ?>>Egresado</option>
+                    <option value="Contratado" <?= $usuario->graduated == 'Contratado' ? ' selected="selected"' : ''; ?>>Contratado</option>
+                    <option value="Nombrado" <?= $usuario->graduated == 'Nombrado' ? ' selected="selected"' : ''; ?>>Nombrado</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -121,7 +121,7 @@
             </div>
             <div class="col-12">
                 <div class="float-end">
-                    <a href="/admin/estudiantes" class="btn btn-danger" type="button">Cancelar</a>
+                    <a href="/admin/docentes" class="btn btn-danger" type="button">Cancelar</a>
                     <input class="btn btn-primary" type="submit" value="Actualizar datos"></input>
                 </div>
             </div>

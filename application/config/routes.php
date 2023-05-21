@@ -75,3 +75,10 @@ $route['admin/convocatoria/(:num)'] = 'admincontroller/editaConvocatoria/$1';
 $route['admin/estudiantes'] = 'admincontroller/verEstudiantes';
 $route['admin/newestudiante'] = 'admincontroller/nuevoEstudiante';
 $route['admin/estudiante/(:num)'] = 'admincontroller/editaEstudiante/$1';
+
+$route['admin/docentes'] = 'admincontroller/verDocentes';
+$route['admin/newdocente'] = 'admincontroller/nuevoDocente';
+$route['admin/docente/(:num)'] = 'admincontroller/editaDocente/$1';
+
+$route['admin/postulaciones'] = 'admincontroller/verPostulaciones';
+$route['admin/postulaciones/(:num)'] = 'admincontroller/verPostulaciones/$1';

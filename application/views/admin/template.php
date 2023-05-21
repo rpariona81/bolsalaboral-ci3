@@ -43,6 +43,24 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>-->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
+
+<script src="<?= base_url('assets/js_ex/scripts.js') ?>"></script>
+
+<!--<script src="< ?= base_url('assets/js/bootstrap.min.js') ?>"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<!--<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>-->
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -105,6 +123,12 @@
                             <div class="sb-nav-link-icon"><i class="fa fa-area-chart"></i></div>
                             Convocatorias
                         </a>
+                        
+                        <a class="nav-link" href="/admin/postulaciones">
+                            <div class="sb-nav-link-icon"><i class="fa fa-list-ul"></i></div>
+                            Postulaciones
+                        </a>
+                        <!--
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fa fa-list-ul"></i></div>
                             Postulaciones
@@ -115,7 +139,7 @@
                                 <a class="nav-link" href="/admin/reportes/programas">Por programa de estudios</a>
                                 <a class="nav-link" href="/admin/reportes/fechas">Por rango de fechas</a>
                             </nav>
-                        </div>
+                        </div>-->
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fa fa-user-secret"></i></div>
                             Datos del administrador
@@ -146,47 +170,25 @@
     </div>
 
 
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
 
+    <!--<script src="< ?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>-->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!--<script src="< ?= base_url('assets/js_ex/scripts.js') ?>"></script>-->
 
-    <script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
+    <!--<!--<script src="< ?= base_url('assets/js/bootstrap.min.js') ?>"></script>-->-->
+    <!--<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>-->
 
-    <script src="<?= base_url('assets/js_ex/scripts.js') ?>"></script>
-
-    <!--<script src="< ?= base_url('assets/js/bootstrap.min.js') ?>"></script>-->
-    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <!--<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>-->
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <!--<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>-->
+    <!--<!--<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>-->-->
+    <!--<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>-->
+    <!--<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>-->
 
     <!--<script src="< ?= base_url('assets/js/datatables-simple-demo.js') ?>"></script>-->
 
-    <script>
-        $(document).ready(function() {
-            //$.noConflict();
-            $('#datatablesSimple').DataTable({
-                pageLength: 7,
-                responsive: true,
-                scrollX: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-                },
-                dom: 'Bfrtip',
-                buttons: [{
-                    extend: 'excelHtml5',
-                    customize: function(xlsx) {
-                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                        $('row c[r^="C"]', sheet).attr('s', '2');
-                    }
-                }]
-            });
-        });
-    </script>
+    
 </body>
 
 </html>

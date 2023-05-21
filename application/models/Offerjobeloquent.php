@@ -25,8 +25,7 @@ class OfferJobEloquent extends Eloquent{
         'vacancy_numbers',
         'date_publish',
         'date_vigency',
-        'career_id',
-        'status'
+        'career_id'
     ];
 
     protected $dates = ['date_publish','date_vigency', 'updated_at'];

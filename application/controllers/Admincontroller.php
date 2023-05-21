@@ -162,6 +162,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['contenido'] = 'admin/estudianteNew';
+            $fechaactual = date('Y-m-d');// 2016-12-29
+            $nuevafecha = strtotime ('-16 year' , strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
             $this->load->view('admin/template', $data);
         } else {
             $this->session->set_flashdata('error');
@@ -188,12 +191,14 @@ class AdminController extends CI_Controller
                 'email' => $this->input->post('email'),
                 'graduated' => $this->input->post('graduated'),
                 'address' => $this->input->post('address'),
+                'password' => password_hash($this->input->post('password'),PASSWORD_BCRYPT),
+                'remember_token' => base64_encode($this->input->post('password')),
                 'role_id' => '4'
             );
-
             $model = new UserEloquent();
             $model->fill($data);
-            $model->save($data);
+            $model->save();
+            //print_r($model);
             redirect('/admin/estudiantes');
         } else {
             redirect('/admin/newestudiante');
@@ -204,6 +209,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['usuario'] = UserEloquent::findOrFail($id);
+            $fechaactual = date('Y-m-d');// 2016-12-29
+            $nuevafecha = strtotime ('-16 year' , strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
             $data['contenido'] = 'admin/estudianteEdit';
             $this->load->view('admin/template', $data);
         } else {
@@ -235,6 +243,13 @@ class AdminController extends CI_Controller
             );
 
             $model = UserEloquent::findOrFail($id);
+            if (password_verify($this->input->post('password'), $model->password)) {
+                $data['password'] = $model->password;
+                $data['remember_token'] = $model->remember_token;
+            }else{
+                $data['password'] = password_hash($this->input->post('password'),PASSWORD_BCRYPT);
+                $data['remember_token'] = base64_encode($this->input->post('password'));
+            }
             $model->fill($data);
             $model->save();
             redirect('/admin/estudiantes','refresh');
@@ -290,6 +305,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['contenido'] = 'admin/docenteNew';
+            $fechaactual = date('Y-m-d');// 2016-12-29
+            $nuevafecha = strtotime ('-21 year' , strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
             $this->load->view('admin/template', $data);
         } else {
             $this->session->set_flashdata('error');
@@ -316,13 +334,15 @@ class AdminController extends CI_Controller
                 'email' => $this->input->post('email'),
                 'graduated' => $this->input->post('graduated'),
                 'address' => $this->input->post('address'),
+                'password' => password_hash($this->input->post('password'),PASSWORD_BCRYPT),
+                'remember_token' => base64_encode($this->input->post('password')),
 				'role_id' => '3'
             );
 
             $model = new UserEloquent();
             $model->fill($data);
             $model->save($data);
-            redirect('/admin/Docentes');
+            redirect('/admin/docentes');
         } else {
             redirect('/admin/newdocente');
         }
@@ -332,6 +352,9 @@ class AdminController extends CI_Controller
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['usuario'] = UserEloquent::findOrFail($id);
+            $fechaactual = date('Y-m-d');// 2016-12-29
+            $nuevafecha = strtotime ('-21 year' , strtotime($fechaactual)); //Se resta un año menos
+            $data['fechamax'] = date ('Y-m-d',$nuevafecha);
             $data['contenido'] = 'admin/docenteEdit';
             $this->load->view('admin/template', $data);
         } else {
@@ -363,9 +386,16 @@ class AdminController extends CI_Controller
             );
 
             $model = UserEloquent::findOrFail($id);
+            if (password_verify($this->input->post('password'), $model->password)) {
+                $data['password'] = $model->password;
+                $data['remember_token'] = $model->remember_token;
+            }else{
+                $data['password'] = password_hash($this->input->post('password'),PASSWORD_BCRYPT);
+                $data['remember_token'] = base64_encode($this->input->post('password'));
+            }
             $model->fill($data);
             $model->save();
-            redirect('/admin/Docentes','refresh');
+            redirect('/admin/docentes','refresh');
         } else {
             echo "fallo actualizacion";
         }
@@ -376,9 +406,9 @@ class AdminController extends CI_Controller
         if ($this->session->userdata('user_rol') == 'admin') {
             $id = $this->input->post('id', true);
             $model = UserEloquent::find($id);
-            $model->status = 0;
+            $model->status = FALSE;
             $model->save();
-            redirect('/admin/Docentes','refresh');
+            redirect('/admin/docentes','refresh');
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
@@ -388,17 +418,70 @@ class AdminController extends CI_Controller
     public function activaDocente()
     {
         if ($this->session->userdata('user_rol') == 'admin') {
-            $id = $this->input->post('id');
+            $id = $this->input->post('id', true);
             $model = UserEloquent::find($id);
-            $model->status = 1;
+            $model->status = TRUE;
             $model->save();
-            redirect('/admin/Docentes','refresh');            
+            redirect('/admin/docentes','refresh');            
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
         }
     }
 
+/**
+     * CONTROL DE POSTULACIONES
+     *  */ 
+
+    public function verPostulaciones($offer_id = NULL)
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['query'] = PostulateJobEloquent::getReportPostulations($offer_id);
+            //echo json_encode($data['query']);
+            $data['contenido'] = 'admin/postulacionTable';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function desactivaPostulacion()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $programa = '/admin/postulaciones/'.$this->input->post('career_id');
+            $model = PostulateJobEloquent::find($id);
+            $model->status = 0;
+            $model->save();
+            //print_r($programa);
+            //redirect('/admin/postulaciones','refresh');    
+            redirect($programa.'','refresh');        
+            //redirect(site_url(uri_string()),'refresh');
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function activaPostulacion()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $id = $this->input->post('id');
+            $programa = '/admin/postulaciones/'.$this->input->post('career_id');
+            $model = PostulateJobEloquent::find($id);
+            $model->status = 1;
+            $model->save();
+            //print_r($programa);
+            //redirect('/admin/postulaciones','refresh');    
+            redirect($programa.'','refresh');        
+            //redirect(site_url(uri_string()),'refresh');
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+    
 
 }
 
