@@ -31,8 +31,23 @@
                                     <h3>Bienvenido(a)</h3>
                                     <p class="font-weight-light my-4">Ingresa tu usuario y contraseña para iniciar sesión</p>
                                 </div>
+
                                 <div class="card-body">
-                                    <!--< ?= dd(session('msg')) ?>-->
+                                    <?php if ($this->session->flashdata('flashSuccess')) : ?>
+                                        <p class='alert alert-success'> <?= $this->session->flashdata('flashSuccess') ?> </p>
+                                    <?php endif ?>
+
+                                    <?php if ($this->session->flashdata('flashError')) : ?>
+                                        <p class='alert alert-danger'> <?= $this->session->flashdata('flashError') ?> </p>
+                                    <?php endif ?>
+
+                                    <?php if ($this->session->flashdata('flashInfo')) : ?>
+                                        <p class='alert alert-info'> <?= $this->session->flashdata('flashInfo') ?> </p>
+                                    <?php endif ?>
+
+                                    <?php if ($this->session->flashdata('flashWarning')) : ?>
+                                        <p class='alert alert-warning'> <?= $this->session->flashdata('flashWarning') ?> </p>
+                                    <?php endif ?>
                                     <hr>
                                     <?= form_open('authcontroller/loginUser') ?>
                                     <div class="form-floating mb-3">

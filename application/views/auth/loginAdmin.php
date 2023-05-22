@@ -34,6 +34,10 @@
                                 </div>
                                 <div class="card-body">
                                     <?= form_open('authcontroller/loginAdmin') ?>
+                                    <?php if ($this->session->flashdata('flashError')) : ?>
+                                        <p class='alert alert-danger'> <?= $this->session->flashdata('flashError') ?> </p>
+                                    <?php endif ?>
+
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="username" name="username" type="text" placeholder="Usuario" required />
                                         <label for="inputUser">Usuario</label>

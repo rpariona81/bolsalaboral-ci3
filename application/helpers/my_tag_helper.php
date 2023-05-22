@@ -20,7 +20,7 @@ if (!function_exists('my_validation_errors')) {
             */
 
             $salida = '<div class="alert alert-danger">';
-            $salida = $salida .'<h5 class="modal-title">Mensajes de validación</h5>';
+            $salida = $salida .'<h5 class="card-title">Mensajes de validación</h5>';
             $salida = $salida . '<small>' . $errors . '</small>';
             $salida = $salida .'</div>';
         }

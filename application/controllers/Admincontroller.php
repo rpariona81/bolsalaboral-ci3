@@ -14,7 +14,6 @@ class AdminController extends CI_Controller
         $this->form_validation->set_message('no_repetir_username', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_email', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_document', 'Existe otro registro con el mismo %s');
-        
     }
 
     public function index()
@@ -176,30 +175,33 @@ class AdminController extends CI_Controller
         }
     }
 
-    public function no_repetir_username($username)
+    public function no_repetir_username($registro)
     {
-        $usuario = UserEloquent::getUserBy('username', $username);
-        if ($usuario) {
+        $registro = $this->input->post();
+        $usuario = UserEloquent::getUserBy('username', $registro['username']);
+        if ($usuario and (!isset($registro['id']) or ($registro['id'] != $usuario->id))) {
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
-    public function no_repetir_email($email)
+    public function no_repetir_email($registro)
     {
-        $usuario = UserEloquent::getUserBy('email', $email);
-        if ($usuario) {
+        $registro = $this->input->post();
+        $usuario = UserEloquent::getUserBy('email', $registro['email']);
+        if ($usuario and (!isset($registro['id']) or ($registro['id'] != $usuario->id))) {
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
-    public function no_repetir_document($document)
+    public function no_repetir_document($registro)
     {
-        $usuario = UserEloquent::getUserBy('document_number', $document);
-        if ($usuario) {
+        $registro = $this->input->post();
+        $usuario = UserEloquent::getUserBy('document_number', $registro['document_number']);
+        if ($usuario and (!isset($registro['id']) or ($registro['id'] != $usuario->id))) {
             return FALSE;
         } else {
             return TRUE;
@@ -259,13 +261,14 @@ class AdminController extends CI_Controller
                 //print_r($model);
                 redirect('/admin/estudiantes');
             } else {
-                redirect('/admin/newestudiante');
+                //redirect('/admin/newestudiante');
+                $this->nuevoEstudiante();
             }
             //}
         }
     }
 
-    public function editaEstudiante($id)
+    public function editaEstudiante($id = NULL)
     {
         if ($this->session->userdata('user_rol') == 'admin') {
             $data['usuario'] = UserEloquent::findOrFail($id);
@@ -282,39 +285,50 @@ class AdminController extends CI_Controller
 
     public function actualizaEstudiante()
     {
-        //$this->_validate();
-        date_default_timezone_set('America/Lima');
-        if ($this->session->userdata('user_rol') == 'admin') {
-            $id = $this->input->post('id');
-            $data = array(
-                'document_type' => $this->input->post('document_type'),
-                'document_number' => $this->input->post('document_number'),
-                'career_id' => $this->input->post('career_id'),
-                'name' => $this->input->post('name'),
-                'paternal_surname' => $this->input->post('paternal_surname'),
-                'maternal_surname' => $this->input->post('maternal_surname'),
-                'gender' => $this->input->post('gender'),
-                'birthdate' => $this->input->post('birthdate'),
-                'username' => $this->input->post('username'),
-                'mobile' => $this->input->post('mobile'),
-                'email' => $this->input->post('email'),
-                'graduated' => $this->input->post('graduated'),
-                'address' => $this->input->post('address')
-            );
-
-            $model = UserEloquent::findOrFail($id);
-            if (password_verify($this->input->post('password'), $model->password)) {
-                $data['password'] = $model->password;
-                $data['remember_token'] = $model->remember_token;
-            } else {
-                $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
-                $data['remember_token'] = base64_encode($this->input->post('password'));
-            }
-            $model->fill($data);
-            $model->save();
-            redirect('/admin/estudiantes', 'refresh');
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('name', 'Nombres', 'required');
+        $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
+        $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        //si el proceso falla mostramos errores
+        if ($this->form_validation->run() == FALSE) {
+            $this->editaEstudiante($registro['id']);
+            //en otro caso procesamos los datos
         } else {
-            echo "fallo actualizacion";
+
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $id = $this->input->post('id');
+                $data = array(
+                    'document_type' => $this->input->post('document_type'),
+                    'document_number' => $this->input->post('document_number'),
+                    'career_id' => $this->input->post('career_id'),
+                    'name' => $this->input->post('name'),
+                    'paternal_surname' => $this->input->post('paternal_surname'),
+                    'maternal_surname' => $this->input->post('maternal_surname'),
+                    'gender' => $this->input->post('gender'),
+                    'birthdate' => $this->input->post('birthdate'),
+                    'username' => $this->input->post('username'),
+                    'mobile' => $this->input->post('mobile'),
+                    'email' => $this->input->post('email'),
+                    'graduated' => $this->input->post('graduated'),
+                    'address' => $this->input->post('address')
+                );
+
+                $model = UserEloquent::findOrFail($id);
+                if (password_verify($this->input->post('password'), $model->password)) {
+                    $data['password'] = $model->password;
+                    $data['remember_token'] = $model->remember_token;
+                } else {
+                    $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+                    $data['remember_token'] = base64_encode($this->input->post('password'));
+                }
+                $model->fill($data);
+                $model->save();
+                redirect('/admin/estudiantes', 'refresh');
+            } else {
+                $this->editaEstudiante($registro['id']);
+            }
         }
     }
 
@@ -377,34 +391,43 @@ class AdminController extends CI_Controller
 
     public function creaDocente()
     {
-        //$this->_validate();
-        date_default_timezone_set('America/Lima');
-        if ($this->session->userdata('user_rol') == 'admin') {
-            $data = array(
-                'document_type' => $this->input->post('document_type'),
-                'document_number' => $this->input->post('document_number'),
-                'career_id' => $this->input->post('career_id'),
-                'name' => $this->input->post('name'),
-                'paternal_surname' => $this->input->post('paternal_surname'),
-                'maternal_surname' => $this->input->post('maternal_surname'),
-                'gender' => $this->input->post('gender'),
-                'birthdate' => $this->input->post('birthdate'),
-                'username' => $this->input->post('username'),
-                'mobile' => $this->input->post('mobile'),
-                'email' => $this->input->post('email'),
-                'graduated' => $this->input->post('graduated'),
-                'address' => $this->input->post('address'),
-                'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-                'remember_token' => base64_encode($this->input->post('password')),
-                'role_id' => '3'
-            );
-
-            $model = new UserEloquent();
-            $model->fill($data);
-            $model->save($data);
-            redirect('/admin/docentes');
+        $this->form_validation->set_rules('name', 'Nombres', 'required');
+        $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
+        $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        //si el proceso falla mostramos errores
+        if ($this->form_validation->run() == FALSE) {
+            $this->nuevoDocente();
+            //en otro caso procesamos los datos
         } else {
-            redirect('/admin/newdocente');
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $data = array(
+                    'document_type' => $this->input->post('document_type'),
+                    'document_number' => $this->input->post('document_number'),
+                    'career_id' => $this->input->post('career_id'),
+                    'name' => $this->input->post('name'),
+                    'paternal_surname' => $this->input->post('paternal_surname'),
+                    'maternal_surname' => $this->input->post('maternal_surname'),
+                    'gender' => $this->input->post('gender'),
+                    'birthdate' => $this->input->post('birthdate'),
+                    'username' => $this->input->post('username'),
+                    'mobile' => $this->input->post('mobile'),
+                    'email' => $this->input->post('email'),
+                    'graduated' => $this->input->post('graduated'),
+                    'address' => $this->input->post('address'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                    'remember_token' => base64_encode($this->input->post('password')),
+                    'role_id' => '3'
+                );
+
+                $model = new UserEloquent();
+                $model->fill($data);
+                $model->save($data);
+                redirect('/admin/docentes');
+            } else {
+                $this->nuevoDocente();
+            }
         }
     }
 
@@ -425,39 +448,49 @@ class AdminController extends CI_Controller
 
     public function actualizaDocente()
     {
-        //$this->_validate();
-        date_default_timezone_set('America/Lima');
-        if ($this->session->userdata('user_rol') == 'admin') {
-            $id = $this->input->post('id');
-            $data = array(
-                'document_type' => $this->input->post('document_type'),
-                'document_number' => $this->input->post('document_number'),
-                'career_id' => $this->input->post('career_id'),
-                'name' => $this->input->post('name'),
-                'paternal_surname' => $this->input->post('paternal_surname'),
-                'maternal_surname' => $this->input->post('maternal_surname'),
-                'gender' => $this->input->post('gender'),
-                'birthdate' => $this->input->post('birthdate'),
-                'username' => $this->input->post('username'),
-                'mobile' => $this->input->post('mobile'),
-                'email' => $this->input->post('email'),
-                'graduated' => $this->input->post('graduated'),
-                'address' => $this->input->post('address')
-            );
-
-            $model = UserEloquent::findOrFail($id);
-            if (password_verify($this->input->post('password'), $model->password)) {
-                $data['password'] = $model->password;
-                $data['remember_token'] = $model->remember_token;
-            } else {
-                $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
-                $data['remember_token'] = base64_encode($this->input->post('password'));
-            }
-            $model->fill($data);
-            $model->save();
-            redirect('/admin/docentes', 'refresh');
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('name', 'Nombres', 'required');
+        $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
+        $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        //si el proceso falla mostramos errores
+        if ($this->form_validation->run() == FALSE) {
+            $this->editaDocente($registro['id']);
+            //en otro caso procesamos los datos
         } else {
-            echo "fallo actualizacion";
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $id = $this->input->post('id');
+                $data = array(
+                    'document_type' => $this->input->post('document_type'),
+                    'document_number' => $this->input->post('document_number'),
+                    'career_id' => $this->input->post('career_id'),
+                    'name' => $this->input->post('name'),
+                    'paternal_surname' => $this->input->post('paternal_surname'),
+                    'maternal_surname' => $this->input->post('maternal_surname'),
+                    'gender' => $this->input->post('gender'),
+                    'birthdate' => $this->input->post('birthdate'),
+                    'username' => $this->input->post('username'),
+                    'mobile' => $this->input->post('mobile'),
+                    'email' => $this->input->post('email'),
+                    'graduated' => $this->input->post('graduated'),
+                    'address' => $this->input->post('address')
+                );
+
+                $model = UserEloquent::findOrFail($id);
+                if (password_verify($this->input->post('password'), $model->password)) {
+                    $data['password'] = $model->password;
+                    $data['remember_token'] = $model->remember_token;
+                } else {
+                    $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+                    $data['remember_token'] = base64_encode($this->input->post('password'));
+                }
+                $model->fill($data);
+                $model->save();
+                redirect('/admin/docentes', 'refresh');
+            } else {
+                $this->editaDocente($registro['id']);
+            }
         }
     }
 

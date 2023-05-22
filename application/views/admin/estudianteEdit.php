@@ -3,6 +3,7 @@
         <div class="card-header">
             <h4 class="card-title">Actualización de datos</h4>
         </div>
+        <?= my_validation_errors(validation_errors()); ?>
         <div class="card-body">
             <?= form_open('admincontroller/actualizaEstudiante', array('class' => 'row g-3 needs-validation')); ?>
             <input type="hidden" value="<?= $usuario->id ?>" name="id" id="id">
