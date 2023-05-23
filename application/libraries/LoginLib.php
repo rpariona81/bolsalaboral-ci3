@@ -34,6 +34,7 @@ class LoginLib
                         'user_id' => $user['id'],
                         'user_rol' => $rol['rolename'],
                         'user_rol_id' => $rol['id'],
+                        'user_career_id' => $user['career_id']
                     );
                     $this->ci->session->set_userdata( $arrayUser );
                     $this->isLogged = TRUE;

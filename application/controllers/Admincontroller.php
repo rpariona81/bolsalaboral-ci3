@@ -526,10 +526,10 @@ class AdminController extends CI_Controller
      * CONTROL DE POSTULACIONES
      *  */
 
-    public function verPostulaciones($offer_id = NULL)
+    public function verPostulaciones($career_id = NULL)
     {
         if ($this->session->userdata('user_rol') == 'admin') {
-            $data['query'] = PostulateJobEloquent::getReportPostulations($offer_id);
+            $data['query'] = PostulateJobEloquent::getReportPostulations($career_id);
             //echo json_encode($data['query']);
             $data['contenido'] = 'admin/postulacionTable';
             $this->load->view('admin/template', $data);
@@ -572,6 +572,44 @@ class AdminController extends CI_Controller
         } else {
             $this->session->set_flashdata('error');
             redirect('/wp-admin');
+        }
+    }
+
+    public function verPostulacion($id = NULL)
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['postulacion'] = PostulateJobEloquent::getPostulation($id);
+            $data['contenido'] = 'admin/postulacionEdit';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+
+    public function resultPostulacion()
+    {
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('result', 'Resultado', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->verPostulacion($registro['id']);
+            //en otro caso procesamos los datos
+        } else {
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $id = $this->input->post('id');
+                $url_actual = '/admin/postulacion/' . $id;
+                $data = array(
+                    'result' => $this->input->post('result', true)
+                );
+                $model = PostulateJobEloquent::findOrFail($id);
+                $model->fill($data);
+                $model->save();
+                $this->session->set_flashdata('flashSuccess', 'Actualización exitosa.');
+                redirect($url_actual, 'refresh');
+            } else {
+                $this->verPostulacion($registro['id']);
+            }
         }
     }
 }

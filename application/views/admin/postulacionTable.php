@@ -2,7 +2,7 @@
 <div class="card mb-4">
     <div class="card-header">
         <a class="btn btn-success btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones">Todos&nbsp;&nbsp;<i class="fa fa-table"></i></a>
-        <a class="btn btn-primary btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones/1">Arquitectura de Plataformas y Servicios de Tecnologías de la Información&nbsp;&nbsp;<i class="fa fa-table"></i></a>
+        <a class="btn btn-primary btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones/1">Arq. de Plataf. y Serv. de TI&nbsp;&nbsp;<i class="fa fa-table"></i></a>
         <a class="btn btn-danger btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones/2">Enfermería Técnica&nbsp;&nbsp;<i class="fa fa-table"></i></a>
         <a class="btn btn-secondary btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones/3">Farmacia Técnica&nbsp;&nbsp;<i class="fa fa-table"></i></a>
         <a class="btn btn-info btn-md" data-toggle="tooltip" data-placement="bottom" href="/admin/postulaciones/4">Tecnología Pesquera y Acuícola&nbsp;&nbsp;<i class="fa fa-table"></i></a>

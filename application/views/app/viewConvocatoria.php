@@ -8,8 +8,12 @@
             <br><br>
             <p class="card-text">Detalle: <?= $convocatoria->detail ?></p>
             <p class="card-text">Número de vacantes: <?= $convocatoria->vacancy_numbers ?></p>
-            <p class="card-text">Fecha de publicación: <?= $convocatoria->date_publish ?></p>
-            <p class="card-text">Fecha lìmite de postulación: <?= $convocatoria->date_vigency ?></p>
+            <p class="card-text">Fecha de publicación: <?= date_format($convocatoria->date_publish,'d/m/Y') ?></p>
+            <p class="card-text">Fecha límite de postulación: <?= date_format($convocatoria->date_vigency,'d/m/Y') ?></p>
+
+            <div class="alert alert-secondary">
+                <small>Programa de estudios: <?= $convocatoria->career_title ?></small>
+            </div>
             <a class="btn btn-warning btn-lg" href="/users">Regresar</a>
             <?php
             if ($this->session->userdata('user_rol') == 'estudiante') {
@@ -32,22 +36,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <?= form_open('appcontroller/postular', array('enctype' => 'multipart/form-data')) ?>
-                <div class="modal-header">
-                    <h5 class="modal-title">Realizar postulación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Puede agregar un mensaje:</p>
-                    <input type="hidden" name="offer_id" value="<?= $convocatoria->id ?>">
-                    <textarea class="form-control" id="msg_postulant" name="msg_postulant" value="$this->msg_postulant"></textarea>
-                    <br>
-                    <p>Cargue archivo PDF (máx. 4 MB): </p>
-                    <input type='file' name='filecv' id='filecv' class='form-control'><br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <input type='submit' class='btn btn-info' value='Confirmar postulación' id='btn_upload'>
-                </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Realizar postulación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Puede agregar un mensaje:</p>
+                <input type="hidden" name="offer_id" value="<?= $convocatoria->id ?>">
+                <textarea class="form-control" id="msg_postulant" name="msg_postulant" value="$this->msg_postulant"></textarea>
+                <br>
+                <p>Cargue archivo PDF (máx. 4 MB): </p>
+                <input type='file' name='filecv' id='filecv' class='form-control'><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <input type='submit' class='btn btn-info' value='Confirmar postulación' id='btn_upload'>
+            </div>
             <?= form_close() ?>
         </div>
     </div>

@@ -3,10 +3,11 @@
 <div class="row align-items-md-stretch">
     <?php foreach ($query as $item) : ?>
         <div class="col-md-6 mb-4">
-            <div class="h-100 bg-light border border-1 border-radius-pill p-5 text-bg-dark rounded-3">
-                <h2><?= $item->title ?></h2>
+            <div class="h-100 bg-light border border-1 border-radius-pill p-4 text-bg-dark rounded-3">
+                <h3><?= $item->title ?></h3>
                 <p><?= substr($item->detail, 0, 100) . '...' ?></p>
-                <p><small class="text-muted">Fecha de publicación:&nbsp;<?= date("d/m/Y", strtotime($item->date_publish)); ?></small></p>
+                <p><small class="text-muted">Fecha de publicación:&nbsp;<?= date("d/m/Y", strtotime($item->date_publish)); ?></small><br>
+                <small><?= $item->career_title ?></small></p>
                 <div class="float-end">
                     <a class="btn btn-outline-success" href="/users/convocatoria/<?= $item->id; ?>"><strong>Ver más detalles</strong></a>
                 </div>

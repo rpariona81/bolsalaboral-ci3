@@ -26,7 +26,9 @@ class AppController extends CI_Controller
             $data = [];
             //$data['rol'] = $this->session->userdata('user_rol');
             $data['pagina'] = 'app/listConvocatorias';
-            $data['query'] = Offerjobeloquent::where('status', '=', 1)->get();
+            //$data['query'] = Offerjobeloquent::where([['status', '=', 1],['career_id', '=', $this->session->userdata('user_career_id')]])->get();
+            //$data['query'] = Offerjobeloquent::where('status', '=', 1)->get();
+            $data['query'] = Offerjobeloquent::getOffersjobs();
             $this->load->view('app/layout/main', $data);
         } else {
             $this->session->set_flashdata('error');
@@ -37,7 +39,8 @@ class AppController extends CI_Controller
     public function viewConvocatoria($id = NULL)
     {
         if ($this->session->userdata('user_rol') != NULL) {
-            $data['convocatoria'] = Offerjobeloquent::findOrFail($id);
+            //$data['convocatoria'] = Offerjobeloquent::findOrFail($id);
+            $data['convocatoria'] = Offerjobeloquent::getOffersjob($id);
             $data['pagina'] = 'app/viewConvocatoria';
             $this->load->view('app/layout/main', $data);
         } else {
