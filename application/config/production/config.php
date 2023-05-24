@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://134.65.252.9/';
-
+//$config['base_url'] = 'http://134.65.252.9/';
+$config['base_url'] = getenv('app.baseURL');
 /*
 |--------------------------------------------------------------------------
 | Index File
