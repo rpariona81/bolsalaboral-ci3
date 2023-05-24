@@ -11,6 +11,7 @@ class AdminEloquent extends Eloquent{
      * @var array
      */
     protected $fillable = [
+        'name','paternal_surname','maternal_surname','mobile',
         'username','email','password'
     ];
 

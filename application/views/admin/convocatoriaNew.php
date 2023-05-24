@@ -42,23 +42,31 @@
                     Looks good!
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label for="vacancy_numbers" class="form-label"># Vacantes</label>
-                <input type="number" class="form-control" min="1" max="30" data-toggle="tooltip" data-placement="top" title="Mínimo 1, Máximo 30" id="vacancy_numbers" name="vacancy_numbers" value="<?php echo set_value('vacancy_numbers') ?>" required>
+                <input type="number" class="form-control text-center" min="1" max="30" data-toggle="tooltip" data-placement="top" title="Mínimo 1, Máximo 30" id="vacancy_numbers" name="vacancy_numbers" value="<?php echo set_value('vacancy_numbers') ?>" required>
                 <div class="invalid-feedback">
                     Please provide a valid city.
                 </div>
             </div>
             <div class="col-md-2">
+                <label for="salary" class="form-label">Sueldo</label>
+                <input type="number" class="form-control text-center" id="salary" min="100" max="4000" data-toggle="tooltip" data-placement="top" title="Mínimo 100, Máximo 4000" name="salary" value="<?php echo set_value('salary') ?>">
+                <div class="invalid-feedback">
+                    Please provide a valid city.
+                </div>
+            </div>
+            
+            <div class="col-md-2">
                 <label for="date_publish" class="form-label">Fecha publicación</label>
-                <input type="date" class="form-control" id="date_publish" name="date_publish" value="<?php echo set_value('date_publish') ?>" required>
+                <input type="date" class="form-control text-center" id="date_publish" name="date_publish" value="<?php echo set_value('date_publish') ?>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-2">
                 <label for="date_vigency" class="form-label">Fecha límite</label>
-                <input type="date" class="form-control" id="date_vigency" name="date_vigency" value="<?php echo set_value('date_vigency') ?>" onchange="validaFechas();" required>
+                <input type="date" class="form-control text-center" id="date_vigency" name="date_vigency" value="<?php echo set_value('date_vigency') ?>" onchange="validaFechas();" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>

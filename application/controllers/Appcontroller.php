@@ -42,6 +42,7 @@ class AppController extends CI_Controller
             //$data['convocatoria'] = Offerjobeloquent::findOrFail($id);
             $data['convocatoria'] = Offerjobeloquent::getOffersjob($id);
             $data['pagina'] = 'app/viewConvocatoria';
+            //echo json_encode($data);
             $this->load->view('app/layout/main', $data);
         } else {
             $this->session->set_flashdata('error', '');
@@ -67,17 +68,6 @@ class AppController extends CI_Controller
             $data['query'] = Postulatejobeloquent::getPostulations($this->session->userdata('user_id'));
             $data['pagina'] = 'app/listPostulaciones';
             //echo json_encode($data['query']);
-            $this->load->view('app/layout/main', $data);
-        } else {
-            $this->session->set_flashdata('error', '');
-            redirect('/wp-login');
-        }
-    }
-
-    public function viewCredenciales()
-    {
-        if ($this->session->userdata('user_rol') != NULL) {
-            $data['pagina'] = 'app/viewCredencial';
             $this->load->view('app/layout/main', $data);
         } else {
             $this->session->set_flashdata('error', '');
@@ -127,10 +117,6 @@ class AppController extends CI_Controller
         }
     }
 
-    public function cambiarClave()
-    {
-    }
-
     public function _do_upload()
     {
         $config['upload_path']          = FCPATH . 'uploads/filescv/';
@@ -161,7 +147,7 @@ class AppController extends CI_Controller
     {
         //print_r($_FILES);
         //$this->_do_upload();
-        $this->_validate();
+        //$this->_validate();
         date_default_timezone_set('America/Lima');
 
         $data = array(
@@ -189,6 +175,54 @@ class AppController extends CI_Controller
         //echo json_encode($data);
         redirect('/users/postulaciones');
     }
+
+    public function viewCredenciales()
+    {
+        if ($this->session->userdata('user_rol') != NULL) {
+            $data['pagina'] = 'app/viewCredencial';
+            $this->load->view('app/layout/main', $data);
+        } else {
+            $this->session->set_flashdata('error', '');
+            redirect('/wp-login');
+        }
+    }
+
+    public function cambiarClave()
+    {
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('clave_act', 'Clave Actual', 'required');
+        $this->form_validation->set_rules('clave_new', 'Clave Nueva', 'required|matches[clave_rep]');
+        $this->form_validation->set_rules('clave_rep', 'Repita Nueva', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            //print_r($registro);
+            //$this->session->set_flashdata('flashError', 'Verifique las claves ingresadas.');
+            $this->viewCredenciales();
+            //en otro caso procesamos los datos
+        } else {
+            if ($this->session->userdata('user_rol') !== NULL) {
+                $id = $this->session->userdata('user_id');
+                $actual = $this->input->post('clave_act');
+                $nuevo = $this->input->post('clave_new');
+                $usuario = UserEloquent::find($id);
+                $password = $usuario['password'];
+                if (password_verify($actual, $password)) {
+                    $newpassword = password_hash($nuevo, PASSWORD_BCRYPT);
+                    $usuario->password = $newpassword;
+                    $usuario->remember_token = base64_encode($nuevo);
+                    $usuario->save();
+                    $this->session->set_flashdata('flashSuccess', 'Actualización exitosa.');
+                    redirect('/users/credenciales', 'refresh');
+                } else {
+                    $this->session->set_flashdata('flashError', 'Verifique las claves ingresadas.');
+                    redirect('/users/credenciales', 'refresh');
+                }
+            } else {
+                $this->session->set_flashdata('error');
+                redirect('/wp-login');
+            }
+        }
+    }
+
 }
 
 /* End of file Controllername.php */

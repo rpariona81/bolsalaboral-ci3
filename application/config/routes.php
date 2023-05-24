@@ -83,3 +83,6 @@ $route['admin/docente/(:num)'] = 'admincontroller/editaDocente/$1';
 $route['admin/postulaciones'] = 'admincontroller/verPostulaciones';
 $route['admin/postulaciones/(:num)'] = 'admincontroller/verPostulaciones/$1';
 $route['admin/postulacion/(:num)'] = 'admincontroller/verPostulacion/$1';
+
+$route['admin/perfil'] = 'admincontroller/viewPerfil';
+$route['admin/claves'] = 'admincontroller/viewClave';

@@ -10,7 +10,7 @@
             <p class="card-text">Número de vacantes: <?= $convocatoria->vacancy_numbers ?></p>
             <p class="card-text">Fecha de publicación: <?= date_format($convocatoria->date_publish,'d/m/Y') ?></p>
             <p class="card-text">Fecha límite de postulación: <?= date_format($convocatoria->date_vigency,'d/m/Y') ?></p>
-
+            <p class="card-text">Sueldo:&nbsp;S/&nbsp;<?= $convocatoria->salary ?></p><br>
             <div class="alert alert-secondary">
                 <small>Programa de estudios: <?= $convocatoria->career_title ?></small>
             </div>

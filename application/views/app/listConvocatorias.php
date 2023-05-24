@@ -7,6 +7,7 @@
                 <h3><?= $item->title ?></h3>
                 <p><?= substr($item->detail, 0, 100) . '...' ?></p>
                 <p><small class="text-muted">Fecha de publicación:&nbsp;<?= date("d/m/Y", strtotime($item->date_publish)); ?></small><br>
+                <small class="text-muted">Sueldo:&nbsp;S/&nbsp;<?= $item->salary ?></small><br>
                 <small><?= $item->career_title ?></small></p>
                 <div class="float-end">
                     <a class="btn btn-outline-success" href="/users/convocatoria/<?= $item->id; ?>"><strong>Ver más detalles</strong></a>

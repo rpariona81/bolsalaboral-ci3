@@ -80,7 +80,7 @@
                     <strong>Administrador</strong><i class="fa fa-user fa-fw"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Cambiar clave</a></li>
+                    <li><a class="dropdown-item" href="/admin/claves">Cambiar clave</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
@@ -140,7 +140,7 @@
                                 <a class="nav-link" href="/admin/reportes/fechas">Por rango de fechas</a>
                             </nav>
                         </div>-->
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/admin/perfil">
                             <div class="sb-nav-link-icon"><i class="fa fa-user-secret"></i></div>
                             Datos del administrador
                         </a>

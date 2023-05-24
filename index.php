@@ -56,7 +56,7 @@
 require_once 'bootstrap.php';
 
 	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? getenv('CI_ENVIRONMENT') : 'development');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : getenv('CI_ENVIRONMENT'));
 
 /*
  *---------------------------------------------------------------

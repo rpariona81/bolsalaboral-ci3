@@ -14,6 +14,7 @@
             <strong>Número de vacantes:</strong> <?= $postulacion->vacancy_numbers ?><br>
             <strong>Fecha de publicación:</strong> <?= $postulacion->date_publish ?><br>
             <strong>Fecha límite de postulación:</strong> <?= $postulacion->date_vigency ?><br>
+            <strong>Sueldo:&nbsp;S/&nbsp;<?= $postulacion->salary ?></strong><br>
             <hr>
             <div class="alert alert-primary">
                 <strong class="card-title">Datos de postulante: &nbsp;<?= $postulacion->name . ' ' . $postulacion->paternal_surname . ' ' . $postulacion->maternal_surname ?></strong><br>

@@ -6,7 +6,15 @@
                     <h3> Cambiar clave de usuario</h3>
                     <hr>
                 </div>
-                <?= form_open('users/cambiarClave') ?>
+                <?php if ($this->session->flashdata('flashSuccess')) : ?>
+                    <p class='alert alert-success'> <?= $this->session->flashdata('flashSuccess') ?> </p>
+                <?php endif ?>
+
+                <?php if ($this->session->flashdata('flashError')) : ?>
+                    <p class='alert alert-danger'> <?= $this->session->flashdata('flashError') ?> </p>
+                <?php endif ?>
+
+                <?= form_open('appcontroller/cambiarclave') ?>
                 <div class="mb-3">
                     <label for="clave_act" class="form-label">Clave Actual</label>
                     <input type="password" id="clave_act" class="form-control" name="clave_act" placeholder="Contraseña actual" required>

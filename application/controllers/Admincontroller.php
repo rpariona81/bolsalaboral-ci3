@@ -11,9 +11,11 @@ class AdminController extends CI_Controller
         $this->load->model('offerjobeloquent');
         $this->load->model('postulatejobeloquent');
         $this->load->model('usereloquent');
+        $this->load->model('admineloquent');
         $this->form_validation->set_message('no_repetir_username', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_email', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_document', 'Existe otro registro con el mismo %s');
+        $this->form_validation->set_message('no_repetir_email_admin', 'Existe otro registro con el mismo %s');
     }
 
     public function index()
@@ -69,6 +71,7 @@ class AdminController extends CI_Controller
                 'detail' => $this->input->post('detail'),
                 'vacancy_numbers' => $this->input->post('vacancy_numbers'),
                 'date_publish' => $this->input->post('date_publish'),
+                'salary' => $this->input->post('salary'),
                 'date_vigency' => $this->input->post('date_vigency')
             );
 
@@ -106,6 +109,7 @@ class AdminController extends CI_Controller
                 'detail' => $this->input->post('detail'),
                 'vacancy_numbers' => $this->input->post('vacancy_numbers'),
                 'date_publish' => $this->input->post('date_publish'),
+                'salary' => $this->input->post('salary'),
                 'date_vigency' => $this->input->post('date_vigency')
             );
 
@@ -609,6 +613,116 @@ class AdminController extends CI_Controller
                 redirect($url_actual, 'refresh');
             } else {
                 $this->verPostulacion($registro['id']);
+            }
+        }
+    }
+
+    public function viewPerfil()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['perfil'] = AdminEloquent::findOrFail($this->session->userdata('user_id'));
+            $data['contenido'] = 'admin/adminPerfil';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+    public function no_repetir_email_admin($registro)
+    {
+        $registro = $this->input->post();
+        $admin = AdminEloquent::where('email', '=', $registro['email'])->first();
+        if ($admin and (!isset($registro['id']) or ($registro['id'] != $admin->id))) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    public function no_repetir_user_admin($registro)
+    {
+        $registro = $this->input->post();
+        $admin = AdminEloquent::where('username', '=', $registro['username'])->first();
+        if ($admin and (!isset($registro['id']) or ($registro['id'] != $admin->id))) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function actualizaPerfil()
+    {
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email_admin');
+        $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_user_admin');
+        if ($this->form_validation->run() == FALSE) {
+            $this->viewPerfil();
+            //en otro caso procesamos los datos
+        } else {
+            date_default_timezone_set('America/Lima');
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $id = $this->input->post('id');
+                $data = array(
+                    'name' => $this->input->post('name', true),
+                    'paternal_surname' => $this->input->post('paternal_surname', true),
+                    'maternal_surname' => $this->input->post('maternal_surname', true),
+                    'username' => $this->input->post('username', true),
+                    'mobile' => $this->input->post('mobile', true),
+                    'email' => $this->input->post('email', true)
+                );
+                $model = AdminEloquent::findOrFail($id);
+                $model->fill($data);
+                $model->save();
+                $this->session->set_flashdata('flashSuccess', 'Actualización exitosa.');
+                redirect('/admin/perfil', 'refresh');
+            } else {
+                $this->session->set_flashdata('flashError', 'Verifique la información ingresada.');
+                $this->viewPerfil();
+            }
+        }
+    }
+
+
+    public function viewClave()
+    {
+        if ($this->session->userdata('user_rol') == 'admin') {
+            $data['contenido'] = 'admin/adminCredencial';
+            $this->load->view('admin/template', $data);
+        } else {
+            $this->session->set_flashdata('error');
+            redirect('/wp-admin');
+        }
+    }
+    public function cambiarClave()
+    {
+        $registro = $this->input->post();
+        $this->form_validation->set_rules('clave_act', 'Clave Actual', 'required');
+        $this->form_validation->set_rules('clave_new', 'Clave Nueva', 'required|matches[clave_rep]');
+        $this->form_validation->set_rules('clave_rep', 'Repita Nueva', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            //print_r($registro);
+            //$this->session->set_flashdata('flashError', 'Verifique las claves ingresadas.');
+            $this->viewClave();
+            //en otro caso procesamos los datos
+        } else {
+            if ($this->session->userdata('user_rol') == 'admin') {
+                $id = $this->session->userdata('user_id');
+                $actual = $this->input->post('clave_act');
+                $nuevo = $this->input->post('clave_new');
+                $usuario = AdminEloquent::find($id);
+                $password = $usuario['password'];
+                if (password_verify($actual, $password)) {
+                    $newpassword = password_hash($nuevo, PASSWORD_BCRYPT);
+                    $usuario->password = $newpassword;
+                    $usuario->save();
+                    $this->session->set_flashdata('flashSuccess', 'Actualización exitosa.');
+                    redirect('/admin/claves', 'refresh');
+                } else {
+                    $this->session->set_flashdata('flashError', 'Verifique las claves ingresadas.');
+                    redirect('/admin/claves', 'refresh');
+                }
+            } else {
+                $this->session->set_flashdata('error');
+                redirect('/wp-admin');
             }
         }
     }
