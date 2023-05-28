@@ -5,7 +5,7 @@
         </div>
         <?= my_validation_errors(validation_errors()); ?>
         <div class="card-body">
-            <?= form_open('admincontroller/creaEstudiante', array('class' => 'row g-3 needs-validation')); ?>
+            <?= form_open('admincontroller/creaDocente', array('class' => 'row g-3 needs-validation')); ?>
             <div class="col-md-4">
                 <label for="name" class="form-label">Tipo de Documento de identidad (*)</label>
                 <select class="form-select" id="document_type" name="document_type" aria-label="Default select example" required>
