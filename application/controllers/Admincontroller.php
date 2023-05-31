@@ -16,6 +16,10 @@ class AdminController extends CI_Controller
         $this->form_validation->set_message('no_repetir_email', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_document', 'Existe otro registro con el mismo %s');
         $this->form_validation->set_message('no_repetir_email_admin', 'Existe otro registro con el mismo %s');
+        /**
+         * En caso se defina el campo mobile como único, validaremos si ya se registró anteriormente
+         */
+        $this->form_validation->set_message('no_repetir_mobile', 'Existe otro registro con el mismo %s');
     }
 
     public function index()
@@ -201,6 +205,21 @@ class AdminController extends CI_Controller
         }
     }
 
+    /**
+     * En caso se defina el campo mobile como único, validaremos si ya se registró anteriormente
+     */
+    public function no_repetir_mobile($registro)
+    {
+        $registro = $this->input->post();
+        $usuario = UserEloquent::getUserBy('mobile', $registro['mobile']);
+        if ($usuario and (!isset($registro['id']) or ($registro['id'] != $usuario->id))) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    
+
     public function no_repetir_document($registro)
     {
         $registro = $this->input->post();
@@ -233,6 +252,7 @@ class AdminController extends CI_Controller
         $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
         $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
         $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        $this->form_validation->set_rules('mobile', 'teléfono celular', 'required|callback_no_repetir_mobile');
         //si el proceso falla mostramos errores
         if ($this->form_validation->run() == FALSE) {
             $this->nuevoEstudiante();
@@ -294,6 +314,7 @@ class AdminController extends CI_Controller
         $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
         $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
         $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        $this->form_validation->set_rules('mobile', 'teléfono celular', 'required|callback_no_repetir_mobile');
         //si el proceso falla mostramos errores
         if ($this->form_validation->run() == FALSE) {
             $this->editaEstudiante($registro['id']);
@@ -399,6 +420,7 @@ class AdminController extends CI_Controller
         $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
         $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
         $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        $this->form_validation->set_rules('mobile', 'teléfono celular', 'required|callback_no_repetir_mobile');
         //si el proceso falla mostramos errores
         if ($this->form_validation->run() == FALSE) {
             $this->nuevoDocente();
@@ -457,6 +479,7 @@ class AdminController extends CI_Controller
         $this->form_validation->set_rules('username', 'Usuario', 'required|callback_no_repetir_username');
         $this->form_validation->set_rules('email', 'Email', 'valid_email|callback_no_repetir_email');
         $this->form_validation->set_rules('document_number', 'Nro documento', 'required|callback_no_repetir_document');
+        $this->form_validation->set_rules('mobile', 'teléfono celular', 'required|callback_no_repetir_mobile');
         //si el proceso falla mostramos errores
         if ($this->form_validation->run() == FALSE) {
             $this->editaDocente($registro['id']);
