@@ -5,7 +5,7 @@ use Illuminate\Support\Carbon;
 
 class CareerEloquent extends Eloquent{
 
-    protected $table = 't_users';
+    protected $table = 't_careers';
     
     /**
      * The attributes that are mass assignable.
